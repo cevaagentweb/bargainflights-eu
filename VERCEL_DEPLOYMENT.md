@@ -21,7 +21,15 @@ environment variables if the integration does not add them automatically:
 The code also accepts the legacy names `KV_REST_API_URL` and `KV_REST_API_TOKEN`.
 
 Generate a strong random value and save it as the secret environment variable `INGEST_TOKEN`.
+Generate another independent secret as `WAITLIST_ADMIN_TOKEN`; it protects the expansion-waitlist
+export endpoint.
+Set `WAITLIST_CONTROLLER_NAME` to the legal person or company responsible for the list and
+`WAITLIST_PRIVACY_EMAIL` to a working address for privacy requests. The form stays disabled until
+Redis and both of these values are present.
 Redeploy after adding or changing environment variables.
+
+The same Redis database stores the expansion-interest list used by `/documentation`. No separate
+email service is required while the goal is only to measure demand.
 
 ## 4. Connect the scanner
 

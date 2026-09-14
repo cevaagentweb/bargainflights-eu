@@ -159,12 +159,17 @@ export default function Home() {
               <span className="block text-[10px] uppercase tracking-[0.22em] text-slate-500">Cheap fares, caught live</span>
             </span>
           </a>
-          <div className="flex items-center gap-2 text-xs text-slate-400">
-            <span className="relative flex size-2">
-              <span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-400 opacity-60" />
-              <span className="relative inline-flex size-2 rounded-full bg-emerald-400" />
-            </span>
-            Live scanner
+          <div className="flex items-center gap-4">
+            <a href="/documentation" className="text-xs font-semibold text-slate-300 transition hover:text-cyan-300">
+              <span className="sm:hidden">Guide</span><span className="hidden sm:inline">Guide & mission</span>
+            </a>
+            <div className="flex items-center gap-2 text-xs text-slate-400">
+              <span className="relative flex size-2">
+                <span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-400 opacity-60" />
+                <span className="relative inline-flex size-2 rounded-full bg-emerald-400" />
+              </span>
+              <span className="hidden sm:inline">Live scanner</span>
+            </div>
           </div>
         </div>
       </header>
@@ -202,7 +207,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-5 py-12 sm:px-8 sm:py-16">
+      <section id="deals" className="mx-auto max-w-7xl scroll-mt-20 px-5 py-12 sm:px-8 sm:py-16">
         <div className="mb-8 flex flex-col gap-6 border-b border-white/10 pb-7 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <p className="font-mono text-xs uppercase tracking-[0.2em] text-cyan-300">Latest catches</p>
@@ -301,7 +306,18 @@ export default function Home() {
           </div>
         )}
 
-        <div className="mt-12 grid gap-6 border-t border-white/10 pt-8 lg:grid-cols-[1fr_auto] lg:items-center">
+        <div className="mt-12 grid gap-5 rounded-2xl border border-cyan-300/15 bg-cyan-300/[0.04] p-6 sm:grid-cols-[1fr_auto] sm:items-center sm:p-8">
+          <div>
+            <p className="font-mono text-xs uppercase tracking-[0.18em] text-cyan-300">Why this project exists</p>
+            <h2 className="mt-2 text-2xl font-bold tracking-tight text-white">Read the guide—or request your departure city.</h2>
+            <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-400">See how fares are selected, what each result means and join the interest list for expanded airport coverage.</p>
+          </div>
+          <Button asChild className="bg-cyan-300 font-bold text-[#041019] hover:bg-cyan-200">
+            <a href="/documentation">Guide & expansion list <ArrowRight /></a>
+          </Button>
+        </div>
+
+        <div className="mt-8 grid gap-6 border-t border-white/10 pt-8 lg:grid-cols-[1fr_auto] lg:items-center">
           <div>
             <p className="flex items-center gap-2 font-semibold text-white"><ArrowRight className="size-4 text-amber-300" /> How this board works</p>
             <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-400">An independent scanner checks selected destinations and publishes only the fares under its deal threshold. Prices move quickly, so always confirm the final fare and conditions on Google Flights before booking.</p>
