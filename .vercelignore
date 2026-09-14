@@ -1,0 +1,12 @@
+.git
+.sites-runtime
+.wrangler
+.vinext
+.openai
+build
+db
+drizzle
+examples
+scripts
+work
+node_modules

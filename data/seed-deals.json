@@ -1,0 +1,70 @@
+{
+  "deals": [
+    {
+      "id": "flight-seed-prg-znz-20260915-120",
+      "origin": "PRG",
+      "originCity": "Prague",
+      "destination": "ZNZ",
+      "destinationCity": "Zanzibar",
+      "destinationCountry": "Tanzania",
+      "region": "East Africa",
+      "tripType": "One Way",
+      "departureDate": "2026-09-15",
+      "returnDate": null,
+      "priceEur": 120,
+      "airline": "Condor",
+      "stops": 1,
+      "googleFlightsUrl": "https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjYtMDktMTUoAmoFEgNQUkdyBRIDWk5aQgEBSAGYAQI=&hl=&curr=EUR",
+      "googlePriceLevel": "low",
+      "typicalRangeLowEur": 445,
+      "publishedAt": "2026-09-14T19:54:53+02:00",
+      "scanFinishedAt": "2026-09-14T19:54:53+02:00"
+    },
+    {
+      "id": "flight-seed-bud-znz-20260915-130",
+      "origin": "BUD",
+      "originCity": "Budapest",
+      "destination": "ZNZ",
+      "destinationCity": "Zanzibar",
+      "destinationCountry": "Tanzania",
+      "region": "East Africa",
+      "tripType": "One Way",
+      "departureDate": "2026-09-15",
+      "returnDate": null,
+      "priceEur": 130,
+      "airline": "Condor",
+      "stops": 1,
+      "googleFlightsUrl": "https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjYtMDktMTUoAmoFEgNCVURyBRIDWk5aQgEBSAGYAQI=&hl=&curr=EUR",
+      "googlePriceLevel": "low",
+      "typicalRangeLowEur": 430,
+      "publishedAt": "2026-09-14T19:54:53+02:00",
+      "scanFinishedAt": "2026-09-14T19:54:53+02:00"
+    },
+    {
+      "id": "flight-seed-vie-znz-20260915-140",
+      "origin": "VIE",
+      "originCity": "Vienna",
+      "destination": "ZNZ",
+      "destinationCity": "Zanzibar",
+      "destinationCountry": "Tanzania",
+      "region": "East Africa",
+      "tripType": "One Way",
+      "departureDate": "2026-09-15",
+      "returnDate": null,
+      "priceEur": 140,
+      "airline": "Condor",
+      "stops": 1,
+      "googleFlightsUrl": "https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjYtMDktMTUoAmoFEgNWSUVyBRIDWk5aQgEBSAGYAQI=&hl=&curr=EUR",
+      "googlePriceLevel": "low",
+      "typicalRangeLowEur": 425,
+      "publishedAt": "2026-09-14T19:54:53+02:00",
+      "scanFinishedAt": "2026-09-14T19:54:53+02:00"
+    }
+  ],
+  "lastUpdated": "2026-09-14T19:54:53+02:00",
+  "scan": {
+    "finishedAt": "2026-09-14T19:54:53+02:00",
+    "searched": 1080,
+    "qualifying": 3
+  }
+}
