@@ -63,7 +63,7 @@ const faqs = [
   {
     question: "Are the fares one-way or return?",
     answer:
-      "Both can appear. Every card identifies the trip type and shows the return date when one is part of the result. Compare like with like before deciding whether a fare is useful.",
+      "Both can appear. The scanner also checks one-way flights from selected long-haul cities back to Vienna, Budapest and Prague; these are labelled Return home. Every card identifies the trip type and shows the return date when one is part of the result.",
   },
   {
     question: "How do I request another departure city?",
@@ -253,6 +253,7 @@ export default function DocumentationPage() {
                   ["Route", "Airport codes identify the exact origin and destination. Check whether either city has more than one airport."],
                   ["Price", "The euro amount is the fare observed during the scan. It may change before you open or complete a booking."],
                   ["Trip type", "One-way and round-trip results are labelled so that unlike itineraries are not confused."],
+                  ["Direction", "Return home identifies a one-way fare from a monitored long-haul city back to Vienna, Budapest or Prague."],
                   ["Travel dates", "Departure and return dates come from the discovered itinerary. Flexible dates may reveal alternatives."],
                   ["Stops", "Direct, one-stop and multi-stop journeys can differ greatly in total travel time and risk."],
                   ["Live search", "The Google Flights link recreates the search. Confirm the current total with the airline or booking provider before paying."],
