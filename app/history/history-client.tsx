@@ -185,7 +185,7 @@ export default function HistoryClient({
               <Card key={deal.id} className="overflow-hidden rounded-none border-white/10 bg-[#0b1721] text-white shadow-none">
                 <CardContent className="p-0">
                   <div className="flex items-center justify-between gap-4 border-b border-white/10 px-5 py-3">
-                    <span className="font-mono text-xs uppercase tracking-[0.16em] text-slate-500">{deal.region}</span>
+                    <span className="font-mono text-xs uppercase tracking-[0.16em] text-slate-500">{deal.routeDirection === "return" ? "Return home · " : ""}{deal.region}</span>
                     <Badge className={departed ? "border border-amber-300/25 bg-amber-300/10 text-amber-200" : deal.status === "active" ? "border border-emerald-300/30 bg-emerald-300/10 text-emerald-200" : "border border-slate-400/20 bg-slate-400/10 text-slate-300"}>
                       <span className={`mr-2 size-1.5 rounded-full ${departed ? "bg-amber-300" : deal.status === "active" ? "bg-emerald-300" : "bg-slate-500"}`} />
                       {departed ? "Departed" : deal.status === "active" ? "Active now" : "No longer listed"}

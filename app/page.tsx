@@ -28,6 +28,7 @@ type Deal = {
   destinationCity: string;
   destinationCountry: string;
   region: string;
+  routeDirection?: "outbound" | "return";
   tripType: string;
   departureDate: string;
   returnDate: string | null;
@@ -84,6 +85,7 @@ export default function Home() {
   const [data, setData] = useState<DealsResponse>({ deals: [], lastUpdated: null, scan: null });
   const [origin, setOrigin] = useState("all");
   const [region, setRegion] = useState("all");
+  const [direction, setDirection] = useState("all");
   const [sort, setSort] = useState("price");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -137,14 +139,15 @@ export default function Home() {
     const filtered = data.deals.filter(
       (deal) =>
         (origin === "all" || deal.origin === origin) &&
-        (region === "all" || deal.region === region),
+        (region === "all" || deal.region === region) &&
+        (direction === "all" || (deal.routeDirection ?? "outbound") === direction),
     );
     return filtered.sort((a, b) =>
       sort === "date"
         ? a.departureDate.localeCompare(b.departureDate) || a.priceEur - b.priceEur
         : a.priceEur - b.priceEur || a.departureDate.localeCompare(b.departureDate),
     );
-  }, [data.deals, origin, region, sort]);
+  }, [data.deals, direction, origin, region, sort]);
 
   return (
     <main className="min-h-screen bg-[#071019] text-[#f4f8fb]">
@@ -231,6 +234,13 @@ export default function Home() {
               {regions.map((value) => <NativeSelectOption key={value} value={value}>{value}</NativeSelectOption>)}
             </NativeSelect>
 
+            <label className="sr-only" htmlFor="direction-filter">Route direction</label>
+            <NativeSelect id="direction-filter" value={direction} onChange={(event) => setDirection(event.target.value)} className="min-w-36 border-white/15 bg-[#0c1824] text-slate-100">
+              <NativeSelectOption value="all">All directions</NativeSelectOption>
+              <NativeSelectOption value="outbound">Going abroad</NativeSelectOption>
+              <NativeSelectOption value="return">Returning home</NativeSelectOption>
+            </NativeSelect>
+
             <label className="sr-only" htmlFor="sort-filter">Sort deals</label>
             <NativeSelect id="sort-filter" value={sort} onChange={(event) => setSort(event.target.value)} className="min-w-32 border-white/15 bg-[#0c1824] text-slate-100">
               <NativeSelectOption value="price">Lowest price</NativeSelectOption>
@@ -262,7 +272,7 @@ export default function Home() {
                 <Card key={deal.id} className="group relative overflow-hidden border-white/10 bg-[#0b1722] py-0 shadow-none transition-transform duration-300 hover:-translate-y-1 hover:border-cyan-300/35">
                   <div className="flex items-center justify-between border-b border-white/10 px-5 py-4">
                     <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.14em] text-slate-400">
-                      <span className="text-cyan-300">#{String(index + 1).padStart(2, "0")}</span>{deal.region}
+                      <span className="text-cyan-300">#{String(index + 1).padStart(2, "0")}</span>{deal.routeDirection === "return" ? "Return home · " : ""}{deal.region}
                     </div>
                     {saving ? (
                       <Badge className="bg-emerald-300/10 text-emerald-200">€{Math.round(saving)} under usual</Badge>
@@ -303,8 +313,8 @@ export default function Home() {
             <span className="mx-auto grid size-12 place-items-center rounded-full bg-white/5 text-slate-400"><Plane className="size-5" /></span>
             <h3 className="mt-5 text-xl font-bold text-white">No matching deal right now</h3>
             <p className="mx-auto mt-2 max-w-lg text-sm leading-6 text-slate-400">The board only shows fares that pass the strict price filter. Try another origin or region, or come back after the next scan.</p>
-            {(origin !== "all" || region !== "all") && (
-              <Button variant="outline" className="mt-6 border-white/15 bg-transparent text-white hover:bg-white/10" onClick={() => { setOrigin("all"); setRegion("all"); }}>Clear filters</Button>
+            {(origin !== "all" || region !== "all" || direction !== "all") && (
+              <Button variant="outline" className="mt-6 border-white/15 bg-transparent text-white hover:bg-white/10" onClick={() => { setOrigin("all"); setRegion("all"); setDirection("all"); }}>Clear filters</Button>
             )}
           </div>
         )}

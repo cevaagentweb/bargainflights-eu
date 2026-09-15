@@ -50,6 +50,7 @@ function normalizeDeal(value: IncomingDeal, scanFinishedAt: string): PublicDeal 
     destinationCity: requiredText(value.destinationCity, "destinationCity", 100),
     destinationCountry: requiredText(value.destinationCountry, "destinationCountry", 100),
     region: requiredText(value.region, "region", 100),
+    routeDirection: value.routeDirection === "return" ? "return" : "outbound",
     tripType: requiredText(value.tripType, "tripType", 40),
     departureDate: dateText(value.departureDate, "departureDate"),
     returnDate:
