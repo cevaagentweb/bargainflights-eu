@@ -20,6 +20,7 @@ import type {
   HistoryPageData,
   HistoryStatusFilter,
 } from "@/lib/history-store";
+import { todayInBratislava } from "@/lib/local-date";
 
 const currency = new Intl.NumberFormat("en-IE", {
   style: "currency",
@@ -179,7 +180,7 @@ export default function HistoryClient({
         {data.deals.length > 0 ? (
           <div className="mt-8 grid gap-5 lg:grid-cols-2">
             {data.deals.map((deal) => {
-              const departed = deal.departureDate < new Date().toISOString().slice(0, 10);
+              const departed = deal.departureDate < todayInBratislava();
               return (
               <Card key={deal.id} className="overflow-hidden rounded-none border-white/10 bg-[#0b1721] text-white shadow-none">
                 <CardContent className="p-0">

@@ -1,4 +1,5 @@
 import type { PublicDeal, PublicFeed } from "@/lib/feed-store";
+import { todayInBratislava } from "@/lib/local-date";
 import { redisCommand, redisPipeline, redisSettings } from "@/lib/redis";
 
 export type HistoryStatus = "active" | "gone";
@@ -44,7 +45,7 @@ function departureScore(value: string) {
 }
 
 function pastDepartureMaxScore() {
-  const today = new Date().toISOString().slice(0, 10);
+  const today = todayInBratislava();
   return Date.parse(`${today}T00:00:00Z`) - 1;
 }
 
