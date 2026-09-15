@@ -207,6 +207,7 @@ export default function HistoryClient({
                     <div className="mt-6 grid gap-3 border-y border-white/10 py-4 text-sm text-slate-300 sm:grid-cols-2">
                       <p className="flex items-center gap-2"><CalendarDays className="size-4 text-cyan-300" /> {formatTravelDate(deal.departureDate)}{deal.returnDate ? ` – ${formatTravelDate(deal.returnDate)}` : ""}</p>
                       <p className="flex items-center gap-2"><Route className="size-4 text-cyan-300" /> {deal.stops == null ? "Stops not listed" : deal.stops === 0 ? "Direct" : `${deal.stops} stop${deal.stops === 1 ? "" : "s"}`}</p>
+                      <p className="flex items-center gap-2"><Plane className="size-4 text-cyan-300" /> {deal.airline || "Airline not listed"}</p>
                       <p className="flex items-center gap-2"><Clock3 className="size-4 text-cyan-300" /> First caught {formatObservedAt(deal.firstSeenAt)}</p>
                       <p className="flex items-center gap-2"><RefreshCw className="size-4 text-cyan-300" /> Seen in {deal.timesSeen} scan{deal.timesSeen === 1 ? "" : "s"}</p>
                     </div>

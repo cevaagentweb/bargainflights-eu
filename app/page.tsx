@@ -293,6 +293,7 @@ export default function Home() {
                         <p className="text-xs uppercase tracking-[0.14em] text-slate-500">From</p>
                         <p className="mt-1 text-4xl font-black tracking-[-0.05em] text-amber-300">{currency.format(deal.priceEur)}</p>
                         <p className="mt-1 text-xs text-slate-500">{deal.tripType}</p>
+                        <p className="mt-1 text-xs font-medium text-slate-300">{deal.airline || "Airline not listed"}</p>
                       </div>
                       <div className="space-y-2 text-right text-xs text-slate-300">
                         <p className="flex items-center justify-end gap-2"><CalendarDays className="size-3.5 text-slate-500" />{formatDate(deal.departureDate)}{deal.returnDate ? ` – ${formatDate(deal.returnDate)}` : ""}</p>
