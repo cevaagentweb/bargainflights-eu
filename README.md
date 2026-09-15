@@ -2,8 +2,9 @@
 
 Public bargain-flight board for unusually cheap fares from Vienna, Budapest and Prague.
 
-The site also includes a long-form guide at `/documentation`, an expansion-interest form,
-FAQ structured data, canonical metadata, `robots.txt`, and an XML sitemap.
+The site also includes a persistent active-and-expired deal archive at `/history`, a long-form
+guide at `/documentation`, an expansion-interest form, FAQ structured data, canonical metadata,
+`robots.txt`, and an XML sitemap.
 
 This package is prepared for GitHub and Vercel. The browser reads the current feed from
 `GET /api/deals`, while the private Windows scanner replaces that feed through the protected

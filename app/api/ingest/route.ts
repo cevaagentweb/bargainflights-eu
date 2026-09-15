@@ -1,4 +1,5 @@
 import { PublicDeal, writeFeed } from "@/lib/feed-store";
+import { updateDealHistory } from "@/lib/history-store";
 
 export const dynamic = "force-dynamic";
 
@@ -88,11 +89,13 @@ export async function POST(request: Request) {
       throw new Error("A maximum of 500 deals can be published at once");
     }
     const deals = incoming.map((deal) => normalizeDeal(deal, finishedAt));
-    await writeFeed({
+    const publicFeed = {
       deals,
       lastUpdated: finishedAt,
       scan: { finishedAt, searched, qualifying: deals.length },
-    });
+    };
+    await writeFeed(publicFeed);
+    await updateDealHistory(publicFeed);
     return Response.json({ ok: true, published: deals.length });
   } catch (error) {
     const message = error instanceof Error ? error.message : "Invalid publish payload";

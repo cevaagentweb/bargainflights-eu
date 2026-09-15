@@ -160,6 +160,9 @@ export default function Home() {
             </span>
           </a>
           <div className="flex items-center gap-4">
+            <a href="/history" className="text-xs font-semibold text-slate-300 transition hover:text-cyan-300">
+              History
+            </a>
             <a href="/documentation" className="text-xs font-semibold text-slate-300 transition hover:text-cyan-300">
               <span className="sm:hidden">Guide</span><span className="hidden sm:inline">Guide & mission</span>
             </a>
