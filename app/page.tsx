@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import {
   ArrowRight,
   CalendarDays,
@@ -217,8 +218,8 @@ export default function Home() {
         <div className="mb-8 flex flex-col gap-6 border-b border-white/10 pb-7 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <p className="font-mono text-xs uppercase tracking-[0.2em] text-cyan-300">Latest catches</p>
-            <h2 className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">Outbound under €221 · homebound under €450</h2>
-            <p className="mt-2 text-sm text-slate-400">Outbound one-way, return-home one-way and round-trip deals surfaced by the automated scanner.</p>
+            <h2 className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">One-way under €221 · round trip under €440</h2>
+            <p className="mt-2 text-sm text-slate-400">Outbound and homebound one-way bargains, direct round trips, and flight-only combinations surfaced by the automated scanner.</p>
           </div>
 
           <div className="grid grid-cols-2 gap-3 sm:flex sm:flex-wrap sm:items-center">
@@ -301,9 +302,14 @@ export default function Home() {
                       </div>
                     </div>
 
-                    <Button asChild className="mt-6 w-full bg-cyan-300 font-bold text-[#04101a] hover:bg-cyan-200">
-                      <a href={deal.googleFlightsUrl} target="_blank" rel="noreferrer">Check live fare <ExternalLink /></a>
-                    </Button>
+                    <div className="mt-6 grid gap-2 sm:grid-cols-[1fr_auto]">
+                      <Button asChild className="bg-cyan-300 font-bold text-[#04101a] hover:bg-cyan-200">
+                        <Link href={`/deals/${deal.id}`}>Build trip options <ArrowRight /></Link>
+                      </Button>
+                      <Button asChild variant="outline" className="border-white/15 bg-transparent text-white hover:bg-white/10">
+                        <a href={deal.googleFlightsUrl} target="_blank" rel="noreferrer" aria-label="Open fare directly"><ExternalLink /></a>
+                      </Button>
+                    </div>
                   </CardContent>
                 </Card>
               );

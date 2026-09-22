@@ -233,3 +233,8 @@ export async function readDealHistory(options?: {
     lastUpdated: meta.lastUpdated,
   };
 }
+
+export async function readDealHistoryEntry(id: string) {
+  if (!redisSettings() || !id) return null;
+  return parseEntry(await redisCommand(["HGET", ENTRIES_KEY, id]));
+}

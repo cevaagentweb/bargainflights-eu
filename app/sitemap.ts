@@ -1,7 +1,11 @@
 import type { MetadataRoute } from "next";
+import { readFeed } from "@/lib/feed-store";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export const dynamic = "force-dynamic";
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://bargainflights.eu";
+  const feed = await readFeed();
   return [
     {
       url: baseUrl,
@@ -27,5 +31,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "yearly",
       priority: 0.2,
     },
+    ...feed.deals.map((deal) => ({
+      url: `${baseUrl}/deals/${deal.id}`,
+      lastModified: new Date(deal.scanFinishedAt),
+      changeFrequency: "daily" as const,
+      priority: 0.6,
+    })),
   ];
 }

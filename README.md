@@ -2,9 +2,11 @@
 
 Public bargain-flight board for unusually cheap fares from Vienna, Budapest and Prague.
 
-The site also includes a persistent active-and-expired deal archive at `/history`, a long-form
+The site also includes a persistent active-and-expired deal archive at `/history`, journey-detail
+pages that pair opposite one-way legs from the same market or selected nearby hubs, a long-form
 guide at `/documentation`, an expansion-interest form, FAQ structured data, canonical metadata,
-`robots.txt`, and an XML sitemap.
+`robots.txt`, and an XML sitemap. Pair totals include only the displayed flight fares and are capped
+at €440; positioning travel and transfers are intentionally excluded.
 
 This package is prepared for GitHub and Vercel. The browser reads the current feed from
 `GET /api/deals`, while the private Windows scanner replaces that feed through the protected

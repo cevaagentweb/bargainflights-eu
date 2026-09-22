@@ -217,9 +217,14 @@ export default function HistoryClient({
                       {deal.goneAt && <span>Marked gone: {formatObservedAt(deal.goneAt)}</span>}
                     </div>
 
-                    <Button asChild variant="outline" className="mt-5 w-full border-white/15 bg-transparent text-white hover:bg-white/10">
-                      <a href={deal.googleFlightsUrl} target="_blank" rel="noreferrer">{deal.status === "active" ? "Check live fare" : "Recheck this route"} <ExternalLink /></a>
-                    </Button>
+                    <div className="mt-5 grid gap-2 sm:grid-cols-[1fr_auto]">
+                      <Button asChild className="bg-cyan-300 font-bold text-[#041019] hover:bg-cyan-200">
+                        <Link href={`/deals/${deal.id}`}>Build trip options</Link>
+                      </Button>
+                      <Button asChild variant="outline" className="border-white/15 bg-transparent text-white hover:bg-white/10">
+                        <a href={deal.googleFlightsUrl} target="_blank" rel="noreferrer" aria-label={deal.status === "active" ? "Open fare directly" : "Recheck this route"}><ExternalLink /></a>
+                      </Button>
+                    </div>
                   </div>
                 </CardContent>
               </Card>
