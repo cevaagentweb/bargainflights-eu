@@ -16,6 +16,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { TripTypeBadge } from "@/components/trip-type-badge";
 import {
   NativeSelect,
   NativeSelectOption,
@@ -275,11 +276,14 @@ export default function Home() {
                     <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.14em] text-slate-400">
                       <span className="text-cyan-300">#{String(index + 1).padStart(2, "0")}</span>{deal.routeDirection === "return" ? "Return home · " : ""}{deal.region}
                     </div>
-                    {saving ? (
-                      <Badge className="bg-emerald-300/10 text-emerald-200">€{Math.round(saving)} under usual</Badge>
-                    ) : (
-                      <Badge variant="outline" className="border-white/15 text-slate-300">{deal.googlePriceLevel || "Low fare"}</Badge>
-                    )}
+                    <div className="flex flex-wrap items-center justify-end gap-2">
+                      <TripTypeBadge tripType={deal.tripType} />
+                      {saving ? (
+                        <Badge className="bg-emerald-300/10 text-emerald-200">€{Math.round(saving)} under usual</Badge>
+                      ) : (
+                        <Badge variant="outline" className="border-white/15 text-slate-300">{deal.googlePriceLevel || "Low fare"}</Badge>
+                      )}
+                    </div>
                   </div>
 
                   <CardContent className="px-5 py-6">
@@ -293,7 +297,6 @@ export default function Home() {
                       <div>
                         <p className="text-xs uppercase tracking-[0.14em] text-slate-500">From</p>
                         <p className="mt-1 text-4xl font-black tracking-[-0.05em] text-amber-300">{currency.format(deal.priceEur)}</p>
-                        <p className="mt-1 text-xs text-slate-500">{deal.tripType}</p>
                         <p className="mt-1 text-xs font-medium text-slate-300">{deal.airline || "Airline not listed"}</p>
                       </div>
                       <div className="space-y-2 text-right text-xs text-slate-300">

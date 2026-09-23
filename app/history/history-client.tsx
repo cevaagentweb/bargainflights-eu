@@ -16,6 +16,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { TripTypeBadge } from "@/components/trip-type-badge";
 import type {
   HistoryPageData,
   HistoryStatusFilter,
@@ -186,10 +187,13 @@ export default function HistoryClient({
                 <CardContent className="p-0">
                   <div className="flex items-center justify-between gap-4 border-b border-white/10 px-5 py-3">
                     <span className="font-mono text-xs uppercase tracking-[0.16em] text-slate-500">{deal.routeDirection === "return" ? "Return home · " : ""}{deal.region}</span>
-                    <Badge className={departed ? "border border-amber-300/25 bg-amber-300/10 text-amber-200" : deal.status === "active" ? "border border-emerald-300/30 bg-emerald-300/10 text-emerald-200" : "border border-slate-400/20 bg-slate-400/10 text-slate-300"}>
-                      <span className={`mr-2 size-1.5 rounded-full ${departed ? "bg-amber-300" : deal.status === "active" ? "bg-emerald-300" : "bg-slate-500"}`} />
-                      {departed ? "Departed" : deal.status === "active" ? "Active now" : "No longer listed"}
-                    </Badge>
+                    <div className="flex flex-wrap items-center justify-end gap-2">
+                      <TripTypeBadge tripType={deal.tripType} />
+                      <Badge className={departed ? "border border-amber-300/25 bg-amber-300/10 text-amber-200" : deal.status === "active" ? "border border-emerald-300/30 bg-emerald-300/10 text-emerald-200" : "border border-slate-400/20 bg-slate-400/10 text-slate-300"}>
+                        <span className={`mr-2 size-1.5 rounded-full ${departed ? "bg-amber-300" : deal.status === "active" ? "bg-emerald-300" : "bg-slate-500"}`} />
+                        {departed ? "Departed" : deal.status === "active" ? "Active now" : "No longer listed"}
+                      </Badge>
+                    </div>
                   </div>
                   <div className="p-5 sm:p-6">
                     <div className="flex items-start justify-between gap-5">
@@ -200,7 +204,6 @@ export default function HistoryClient({
                       </div>
                       <div className="text-right">
                         <p className="text-3xl font-black tracking-tight text-amber-200">{currency.format(deal.priceEur)}</p>
-                        <p className="mt-1 text-xs uppercase tracking-[0.12em] text-slate-500">{deal.tripType}</p>
                       </div>
                     </div>
 

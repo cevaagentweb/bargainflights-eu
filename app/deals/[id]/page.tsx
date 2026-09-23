@@ -14,6 +14,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { TripTypeBadge } from "@/components/trip-type-badge";
 import { readFeed } from "@/lib/feed-store";
 import { readDealHistoryEntry } from "@/lib/history-store";
 import {
@@ -112,6 +113,7 @@ export default async function DealOptionsPage({
             <Badge className="border border-cyan-300/25 bg-cyan-300/10 text-cyan-200">
               {direction === "return" ? "Return home" : "Going abroad"}
             </Badge>
+            <TripTypeBadge tripType={selected.tripType} />
             <Badge variant="outline" className="border-white/15 text-slate-300">
               {selected.region} · {marketCode}
             </Badge>
@@ -176,6 +178,7 @@ export default async function DealOptionsPage({
                     <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
                       <div>
                         <div className="flex flex-wrap items-center gap-2">
+                          <TripTypeBadge tripType={option.deal.tripType} />
                           <Badge className={option.deal.status === "active" ? "border border-emerald-300/25 bg-emerald-300/10 text-emerald-200" : "border border-amber-300/25 bg-amber-300/10 text-amber-200"}>
                             {option.deal.status === "active" ? "Latest scan" : "History—recheck"}
                           </Badge>
