@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { VisitorCounter } from "@/components/visitor-counter";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -57,6 +58,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           }}
         />
         {children}
+        <VisitorCounter />
       </body>
     </html>
   );

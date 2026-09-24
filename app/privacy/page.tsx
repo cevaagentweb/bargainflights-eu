@@ -5,7 +5,7 @@ import { ArrowLeft, Plane, ShieldCheck } from "lucide-react";
 export const metadata: Metadata = {
   title: "Privacy notice",
   description:
-    "How BargainFlights.eu handles email addresses submitted to the airport-expansion interest list.",
+    "How BargainFlights.eu handles its email interest lists and approximate visitor count.",
   alternates: { canonical: "/privacy" },
 };
 
@@ -24,8 +24,8 @@ export default function PrivacyPage() {
             </span>
             <span className="text-sm font-bold tracking-[0.08em] text-white">BARGAINFLIGHTS.EU</span>
           </Link>
-          <Link href="/documentation#expansion" className="inline-flex items-center gap-2 text-xs font-semibold text-slate-300 hover:text-cyan-300">
-            <ArrowLeft className="size-3.5" /> Interest list
+          <Link href="/" className="inline-flex items-center gap-2 text-xs font-semibold text-slate-300 hover:text-cyan-300">
+            <ArrowLeft className="size-3.5" /> Back to deals
           </Link>
         </div>
       </header>
@@ -35,14 +35,14 @@ export default function PrivacyPage() {
           <span className="grid size-10 place-items-center rounded-xl bg-cyan-300/10"><ShieldCheck className="size-5" /></span>
           <p className="font-mono text-xs font-semibold uppercase tracking-[0.2em]">Plain-language privacy notice</p>
         </div>
-        <h1 className="mt-6 text-4xl font-black tracking-[-0.04em] text-white sm:text-5xl">Expansion interest list privacy.</h1>
+        <h1 className="mt-6 text-4xl font-black tracking-[-0.04em] text-white sm:text-5xl">Your email and visitor privacy.</h1>
         <p className="mt-5 max-w-3xl text-base leading-8 text-slate-300">
-          This notice applies only to the form used to measure interest in adding more departure cities to BargainFlights.eu. It is not a general newsletter signup.
+          This notice covers two separate email interest lists and the approximate visitor counter. Joining one email list does not add you to the other.
         </p>
 
         {!active && (
           <div className="mt-8 rounded-2xl border border-amber-300/20 bg-amber-300/[0.05] p-5 text-sm leading-7 text-amber-100/80">
-            The interest list is not accepting email addresses yet. The responsible person or company and a working privacy contact will be published here before collection opens.
+            Email signups are closed until the responsible person or company and a working privacy contact are published here. The visitor counter may still show an approximate site total.
           </div>
         )}
 
@@ -51,24 +51,32 @@ export default function PrivacyPage() {
             {
               title: "Who controls the data",
               body: active
-                ? `${controllerName} is the data controller for this interest list. Privacy requests can be sent to ${privacyEmail}.`
-                : "Controller details have not been configured because the interest list is not active.",
+                ? `${controllerName} is responsible for the email lists and the visitor counter. Privacy requests can be sent to ${privacyEmail}.`
+                : "Controller details have not yet been configured. Email collection remains closed until they are published.",
             },
             {
-              title: "What is collected",
-              body: "Your email address, your optional preferred departure airport, the time you joined and the consent wording version. For abuse prevention, a one-way hash derived from the requesting IP address is kept for no longer than 24 hours; the raw IP address is not placed in the interest list.",
+              title: "Flight-alert interest list",
+              body: "If you choose this list, we store your email address, signup time and consent version to measure interest in cheap-flight email alerts. No flight-alert emails are being sent yet. If they launch, this list will be used only for those alerts. You can withdraw before or after launch.",
             },
             {
-              title: "Why it is collected",
-              body: "The information is used to count genuine interest, understand which departure airports people want, and contact participants only when there is meaningful news about expanded coverage. The processing is based on the consent given with the form.",
+              title: "Airport-expansion list",
+              body: "If you choose the separate airport-expansion list, we store your email address, optional preferred departure airport, signup time and consent version. We use it to measure demand for more cities and contact you only about meaningful coverage news. This list is not used for flight-alert emails.",
+            },
+            {
+              title: "Consent and abuse prevention",
+              body: "Both email lists rely on the consent you give in their separate forms. To limit repeated signups, a one-way hash derived from the requesting IP address is retained for no more than 24 hours. The raw IP address is not added to either email list.",
+            },
+            {
+              title: "Approximate visitor total",
+              body: "When a page loads, the site estimates unique visitors using a protected one-way calculation from the network address and browser type sent with the request. Only an aggregate counting structure is kept; the counter does not store the address, browser details, a cookie or a browser ID. It starts counting when this feature launches. Changes of network or browser can count one person more than once, and shared networks can count several people as one. We use this limited measurement under our legitimate interest in understanding the site's broad reach.",
             },
             {
               title: "Where it is stored",
-              body: "The website runs on Vercel and the interest list is designed to use an Upstash Redis database with server-side credentials. These providers process technical data needed to host the site and save submissions. Their contractual safeguards govern any processing outside the European Economic Area.",
+              body: "The website runs on Vercel. The email lists and aggregate visitor count use an Upstash Redis database with server-side credentials. These providers process technical data needed to host the site and save submissions. Their contractual safeguards govern any processing outside the European Economic Area.",
             },
             {
               title: "How long it is kept",
-              body: "Interest-list records are reviewed after 12 months and deleted when they are no longer needed for the expansion decision. A record may be removed sooner when consent is withdrawn.",
+              body: "Email interest records are reviewed at least every 12 months and removed when no longer needed for their stated purpose, or sooner when consent is withdrawn. The visitor counter retains only its aggregate total, with no individual visitor records to delete.",
             },
             {
               title: "Your choices",
@@ -76,7 +84,7 @@ export default function PrivacyPage() {
             },
             {
               title: "Providing data and automation",
-              body: "Joining is voluntary. Without an email address you cannot join the list. The submitted information is not used for automated decisions or profiling, and it is not sold to third parties.",
+              body: "Joining either list is voluntary. Without an email address you cannot join an email list. The submitted information is not used for automated decisions or profiling, and it is not sold to third parties.",
             },
           ].map((item) => (
             <section key={item.title} className="grid gap-3 py-7 sm:grid-cols-[190px_1fr] sm:gap-8">
@@ -95,7 +103,7 @@ export default function PrivacyPage() {
           </section>
         )}
 
-        <p className="mt-8 text-xs text-slate-600">Last updated: 15 September 2026</p>
+        <p className="mt-8 text-xs text-slate-600">Last updated: 24 September 2026</p>
       </main>
     </div>
   );

@@ -16,6 +16,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { DealAlertForm } from "@/components/deal-alert-form";
 import { TripTypeBadge } from "@/components/trip-type-badge";
 import {
   NativeSelect,
@@ -204,6 +205,9 @@ export default function Home() {
             <p className="mt-6 max-w-2xl text-base leading-7 text-slate-200 sm:text-lg">
               Fresh fares from Vienna, Budapest and Prague to East Africa, Latin America and Southeast Asia — only when the price is genuinely interesting.
             </p>
+            <a href="#flight-alerts" className="mt-7 inline-flex items-center gap-2 rounded-xl bg-cyan-300 px-5 py-3 text-sm font-bold text-[#041019] transition hover:bg-cyan-200">
+              Join the flight-alert interest list <ArrowRight className="size-4" />
+            </a>
           </div>
           <div className="mt-10 justify-self-start border-l-2 border-cyan-300 pl-5 lg:mt-0 lg:justify-self-end">
             <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-cyan-200">Last radar sweep</p>
@@ -329,7 +333,16 @@ export default function Home() {
           </div>
         )}
 
-        <div className="mt-12 grid gap-5 rounded-2xl border border-cyan-300/15 bg-cyan-300/[0.04] p-6 sm:grid-cols-[1fr_auto] sm:items-center sm:p-8">
+        <section id="flight-alerts" className="mt-12 scroll-mt-24 rounded-2xl border border-cyan-300/25 bg-cyan-300/[0.055] p-6 sm:p-8">
+          <p className="font-mono text-xs uppercase tracking-[0.18em] text-cyan-300">Flight alerts</p>
+          <h2 className="mt-2 text-2xl font-bold tracking-tight text-white sm:text-3xl">Want cheap flights in your inbox?</h2>
+          <p className="mt-3 max-w-3xl text-sm leading-6 text-slate-300">
+            Add your email to show interest in future flight alerts. We are collecting subscribers now; no flight emails are being sent yet.
+          </p>
+          <DealAlertForm />
+        </section>
+
+        <div className="mt-8 grid gap-5 rounded-2xl border border-cyan-300/15 bg-cyan-300/[0.04] p-6 sm:grid-cols-[1fr_auto] sm:items-center sm:p-8">
           <div>
             <p className="font-mono text-xs uppercase tracking-[0.18em] text-cyan-300">Why this project exists</p>
             <h2 className="mt-2 text-2xl font-bold tracking-tight text-white">Read the guide—or request your departure city.</h2>
