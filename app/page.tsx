@@ -356,7 +356,7 @@ export default function Home() {
         <div className="mt-8 grid gap-6 border-t border-white/10 pt-8 lg:grid-cols-[1fr_auto] lg:items-center">
           <div>
             <p className="flex items-center gap-2 font-semibold text-white"><ArrowRight className="size-4 text-amber-300" /> How this board works</p>
-            <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-400">Independent scans check selected destinations and Condor itineraries from Vienna to destinations outside Europe. Only fares under the relevant deal threshold are published. Prices move quickly, so always confirm the final fare and conditions on Google Flights before booking.</p>
+            <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-400">Independent scans check selected destinations and Condor itineraries from Vienna to destinations outside Europe. Condor fares must be under €221 and in Google Flights&apos; Low price range. Prices move quickly, so always confirm the final fare and conditions on Google Flights before booking.</p>
           </div>
           <p className="font-mono text-xs uppercase tracking-[0.16em] text-slate-600">BargainFlights.eu</p>
         </div>
