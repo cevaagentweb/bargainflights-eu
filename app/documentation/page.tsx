@@ -295,7 +295,7 @@ export default function DocumentationPage() {
 
             <section id="coverage" className="scroll-mt-24 border-b border-white/10 py-16">
               <ChapterLabel number="06" />
-              <h2 className="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl">Current airports and destination regions.</h2>
+              <h2 className="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl">Current airports and destination areas.</h2>
               <p className="mt-6 max-w-3xl text-base leading-8 text-slate-300">
                 The first version is built around airports that many travellers in and around Slovakia can reach by road, rail or connecting transport.
               </p>
@@ -313,10 +313,13 @@ export default function DocumentationPage() {
                 ))}
               </div>
               <div className="mt-7 flex flex-wrap gap-3">
-                {["East Africa", "Latin America", "Southeast Asia"].map((region) => (
+                {["East Africa", "Latin America", "Southeast Asia", "Maldives", "South India", "Egypt"].map((region) => (
                   <span key={region} className="inline-flex items-center gap-2 rounded-full border border-white/10 px-4 py-2 text-sm text-slate-300"><MapPin className="size-3.5 text-amber-300" />{region}</span>
                 ))}
               </div>
+              <p className="mt-5 text-sm leading-7 text-slate-300">
+                The Maldives scan includes Malé (MLE). South India includes Bengaluru (BLR), Chennai (MAA) and Kochi (COK). Egypt includes Cairo (CAI).
+              </p>
               <p className="mt-7 text-sm leading-7 text-slate-400">
                 Coverage changes as the scanner is refined. The deal board, not this list, is the authoritative view of what has qualified most recently.
               </p>

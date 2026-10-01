@@ -203,7 +203,7 @@ export default function Home() {
               Flights cheap enough to change your plans.
             </h1>
             <p className="mt-6 max-w-2xl text-base leading-7 text-slate-200 sm:text-lg">
-              Fresh fares from Vienna, Budapest and Prague to East Africa, Latin America and Southeast Asia — only when the price is genuinely interesting.
+              Fresh fares from Vienna, Budapest and Prague to selected destinations across Africa, Asia and Latin America — only when the price is genuinely interesting.
             </p>
             <a href="#flight-alerts" className="mt-7 inline-flex items-center gap-2 rounded-xl bg-cyan-300 px-5 py-3 text-sm font-bold text-[#041019] transition hover:bg-cyan-200">
               Join the flight-alert interest list <ArrowRight className="size-4" />
