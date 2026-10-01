@@ -320,6 +320,9 @@ export default function DocumentationPage() {
               <p className="mt-5 text-sm leading-7 text-slate-300">
                 The Maldives scan includes Malé (MLE). South India includes Bengaluru (BLR), Chennai (MAA) and Kochi (COK). Egypt includes Cairo (CAI).
               </p>
+              <p className="mt-4 text-sm leading-7 text-slate-300">
+                A separate Condor scan checks complete one-way itineraries from Vienna to every non-European destination in Condor&apos;s published timetable. It checks nearby departure dates daily and later dates through a weekly cycle, and lists fares strictly below €221.
+              </p>
               <p className="mt-7 text-sm leading-7 text-slate-400">
                 Coverage changes as the scanner is refined. The deal board, not this list, is the authoritative view of what has qualified most recently.
               </p>

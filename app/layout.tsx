@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     template: "%s | BargainFlights.eu",
   },
   description:
-    "Fresh unusually cheap flights from Vienna, Budapest and Prague to selected destinations across Africa, Asia and Latin America.",
+    "Fresh unusually cheap flights from Vienna, Budapest and Prague, including Condor itineraries from Vienna to destinations outside Europe.",
   alternates: { canonical: "/" },
   openGraph: {
     title: "BargainFlights.eu | Cheap flights from Central Europe",

@@ -203,7 +203,7 @@ export default function Home() {
               Flights cheap enough to change your plans.
             </h1>
             <p className="mt-6 max-w-2xl text-base leading-7 text-slate-200 sm:text-lg">
-              Fresh fares from Vienna, Budapest and Prague to selected destinations across Africa, Asia and Latin America — only when the price is genuinely interesting.
+              Fresh fares from Vienna, Budapest and Prague, plus Condor routes from Vienna to destinations outside Europe — only when the price is genuinely interesting.
             </p>
             <a href="#flight-alerts" className="mt-7 inline-flex items-center gap-2 rounded-xl bg-cyan-300 px-5 py-3 text-sm font-bold text-[#041019] transition hover:bg-cyan-200">
               Join the flight-alert interest list <ArrowRight className="size-4" />
@@ -356,7 +356,7 @@ export default function Home() {
         <div className="mt-8 grid gap-6 border-t border-white/10 pt-8 lg:grid-cols-[1fr_auto] lg:items-center">
           <div>
             <p className="flex items-center gap-2 font-semibold text-white"><ArrowRight className="size-4 text-amber-300" /> How this board works</p>
-            <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-400">An independent scanner checks selected destinations and publishes only the fares under its deal threshold. Prices move quickly, so always confirm the final fare and conditions on Google Flights before booking.</p>
+            <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-400">Independent scans check selected destinations and Condor itineraries from Vienna to destinations outside Europe. Only fares under the relevant deal threshold are published. Prices move quickly, so always confirm the final fare and conditions on Google Flights before booking.</p>
           </div>
           <p className="font-mono text-xs uppercase tracking-[0.16em] text-slate-600">BargainFlights.eu</p>
         </div>
