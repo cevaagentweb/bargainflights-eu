@@ -250,6 +250,7 @@ export default function DocumentationPage() {
               <h2 className="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl">How to read and verify a deal.</h2>
               <div className="mt-8 overflow-hidden rounded-2xl border border-white/10">
                 {[
+                  ["Locations", "The live board shows one row per monitored place, with its lowest current fare. Open that place to compare every available departure date, route and fare."],
                   ["Route", "Airport codes identify the exact origin and destination. Check whether either city has more than one airport."],
                   ["Price", "The euro amount is the fare observed during the scan. It may change before you open or complete a booking."],
                   ["Trip type", "One-way and round-trip results are labelled so that unlike itineraries are not confused."],

@@ -14,8 +14,7 @@ export async function GET() {
           (a, b) =>
             a.priceEur - b.priceEur ||
             a.departureDate.localeCompare(b.departureDate),
-        )
-        .slice(0, 250),
+        ),
     },
     {
       headers: {
