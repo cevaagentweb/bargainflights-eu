@@ -1,5 +1,34 @@
 # Vercel handoff for BargainFlights.eu
 
+## Current production deployment (11 October 2026)
+
+The original project now belongs to the `cevaagent-1009s-projects` Vercel account:
+
+- Dashboard: https://vercel.com/cevaagent-1009s-projects/bargainflights-eu
+- Project ID: `prj_nbNtgkTCAJ1A67frPLVzshMZpddO`
+- GitHub: https://github.com/cevaagentweb/bargainflights-eu
+- Production branch: `main`; pushes deploy in the new account.
+- Live website: https://www.bargainflights.eu; the apex redirects there with HTTP 308.
+- Framework: Next.js, with Node.js 24 and the default build settings.
+
+Deployment history, production secrets, the scanner ingest token and visitor hashing key were
+preserved by the account migration. The local `.vercel/project.json` also points to the new
+account. This is a separate client project from FirmyAI and its showcase.
+
+The existing legacy free Upstash database `upstash-kv-red-school` remains managed through
+`johns-projects-81d361de`. Its credentials remain connected to the migrated website, preserving
+the live feed, history, email interest lists and aggregate visitor count. Database ownership
+needs a separate migration before that old integration or account is retired.
+
+For a manual deployment from this checkout, use its ignored account configuration:
+
+```powershell
+npx --yes vercel@62.7.0 --prod --scope cevaagent-1009s-projects --global-config .vercel/account-cevaagent
+```
+
+On another computer, authenticate to the destination account and link to the existing project;
+keep all credentials outside Git. The instructions below describe setting up a fresh installation.
+
 ## 1. Put the package on GitHub
 
 Extract the delivery ZIP, create a new GitHub repository, and upload the extracted files at the
