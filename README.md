@@ -29,6 +29,16 @@ This package is prepared for GitHub and Vercel. The browser reads the current fe
 
 Without Redis credentials the site safely displays the included three-deal Zanzibar seed feed.
 
+## Monitored destinations
+
+The regional scanner covers Japan through Tokyo Narita (NRT), Tokyo Haneda (HND) and Osaka
+Kansai (KIX); Rwanda through Kigali (KGL); and Egypt through Cairo (CAI) and Sharm El Sheikh
+(SSH), with a separate ground transfer for Dahab. South American coverage includes Bogotá
+(BOG), Cartagena (CTG), Lima (LIM), São Paulo (GRU), Rio de Janeiro Galeão (GIG), Buenos Aires
+Ezeiza (EZE) and Santiago, Chile (SCL), alongside the existing regions listed in the guide.
+The private scanner configuration and its selected alert regions control actual searches;
+the public board shows a destination only after a fare qualifies.
+
 ## Production services
 
 The live feed, both email interest lists and visitor counter share an Upstash Redis database.

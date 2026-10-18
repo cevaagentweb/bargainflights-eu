@@ -314,12 +314,18 @@ export default function DocumentationPage() {
                 ))}
               </div>
               <div className="mt-7 flex flex-wrap gap-3">
-                {["East Africa", "Latin America", "Southeast Asia", "Maldives", "South India", "Egypt"].map((region) => (
+                {["East Africa", "Latin America", "Southeast Asia", "Japan", "Maldives", "South India", "Egypt"].map((region) => (
                   <span key={region} className="inline-flex items-center gap-2 rounded-full border border-white/10 px-4 py-2 text-sm text-slate-300"><MapPin className="size-3.5 text-amber-300" />{region}</span>
                 ))}
               </div>
               <p className="mt-5 text-sm leading-7 text-slate-300">
-                The Maldives scan includes Malé (MLE). South India includes Bengaluru (BLR), Chennai (MAA) and Kochi (COK). Egypt includes Cairo (CAI).
+                East Africa includes Zanzibar (ZNZ) and Kigali, Rwanda (KGL). Egypt includes Cairo (CAI) and Sharm El Sheikh (SSH), the arrival airport for the Dahab area. Travel onward to Dahab requires a separate ground transfer, which is not included in the flight fare.
+              </p>
+              <p className="mt-4 text-sm leading-7 text-slate-300">
+                Japan includes Tokyo Narita (NRT), Tokyo Haneda (HND) and Osaka Kansai (KIX). South America includes Bogotá (BOG), Cartagena (CTG), Lima (LIM), São Paulo (GRU), Rio de Janeiro Galeão (GIG), Buenos Aires Ezeiza (EZE) and Santiago, Chile (SCL).
+              </p>
+              <p className="mt-4 text-sm leading-7 text-slate-300">
+                The Maldives scan includes Malé (MLE). South India includes Bengaluru (BLR), Chennai (MAA) and Kochi (COK). Latin America also includes Cancún (CUN) and Mexico City (MEX).
               </p>
               <p className="mt-4 text-sm leading-7 text-slate-300">
                 A separate Condor scan checks complete one-way itineraries from Vienna to every non-European destination in Condor&apos;s published timetable. It checks nearby departure dates daily and later dates through a weekly cycle. A fare appears only when it is strictly below €221 and falls in Google Flights&apos; Low price range for that route and date.
