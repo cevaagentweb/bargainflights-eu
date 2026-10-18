@@ -325,7 +325,13 @@ export default function DocumentationPage() {
                 Japan includes Tokyo Narita (NRT), Tokyo Haneda (HND) and Osaka Kansai (KIX). South America includes Bogotá (BOG), Cartagena (CTG), Lima (LIM), São Paulo (GRU), Rio de Janeiro Galeão (GIG), Buenos Aires Ezeiza (EZE), Recife (REC), Fortaleza (FOR) and Salvador (SSA).
               </p>
               <p className="mt-4 text-sm leading-7 text-slate-300">
-                Central America includes Panama City Tocumen (PTY) and San José, Costa Rica (SJO). Caribbean coverage includes Punta Cana (PUJ) and Santo Domingo (SDQ) in the Dominican Republic. These routes are monitored for occasional bargains under the same price limits as the rest of the board.
+                Central America includes Panama City Tocumen (PTY) and San José, Costa Rica (SJO).
+              </p>
+              <p className="mt-4 text-sm leading-7 text-slate-300">
+                Caribbean coverage includes Port of Spain, Trinidad (POS), and Tobago (TAB); Montego Bay, Jamaica (MBJ); Bridgetown, Barbados (BGI); St. John&apos;s, Antigua (ANU); and Punta Cana (PUJ), Santo Domingo (SDQ) and Puerto Plata (POP) in the Dominican Republic.
+              </p>
+              <p className="mt-4 text-sm leading-7 text-slate-300">
+                The scan also includes Havana, Cuba (HAV); Willemstad, Curaçao (CUR); Oranjestad, Aruba (AUA); Fort-de-France, Martinique (FDF); and Pointe-à-Pitre, Guadeloupe (PTP). These routes are monitored for occasional bargains under the same price limits as the rest of the board.
               </p>
               <p className="mt-4 text-sm leading-7 text-slate-300">
                 The Maldives scan includes Malé (MLE). South India includes Bengaluru (BLR), Chennai (MAA) and Kochi (COK). Latin America also includes Cancún (CUN) and Mexico City (MEX).

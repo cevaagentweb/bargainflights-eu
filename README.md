@@ -36,8 +36,12 @@ Kansai (KIX); Rwanda through Kigali (KGL); and Egypt through Cairo (CAI) and Sha
 (SSH), with a separate ground transfer for Dahab. South American coverage includes Bogotá
 (BOG), Cartagena (CTG), Lima (LIM), São Paulo (GRU), Rio de Janeiro Galeão (GIG), Buenos Aires
 Ezeiza (EZE), Recife (REC), Fortaleza (FOR) and Salvador (SSA). Central America includes
-Panama City Tocumen (PTY) and San José, Costa Rica (SJO); the Caribbean includes Punta Cana
-(PUJ) and Santo Domingo (SDQ). Santiago, Chile (SCL) is no longer monitored by the regional scan.
+Panama City Tocumen (PTY) and San José, Costa Rica (SJO). Caribbean coverage includes
+Port of Spain, Trinidad (POS), Tobago (TAB), Montego Bay (MBJ), Bridgetown, Barbados (BGI),
+St. John's, Antigua (ANU), Punta Cana (PUJ), Santo Domingo (SDQ), Puerto Plata (POP),
+Havana (HAV), Willemstad, Curaçao (CUR), Oranjestad, Aruba (AUA), Fort-de-France,
+Martinique (FDF), and Pointe-à-Pitre, Guadeloupe (PTP).
+Santiago, Chile (SCL) is no longer monitored by the regional scan.
 The private scanner configuration and its selected alert regions control actual searches;
 the public board shows a destination only after a fare qualifies.
 
