@@ -35,7 +35,9 @@ The regional scanner covers Japan through Tokyo Narita (NRT), Tokyo Haneda (HND)
 Kansai (KIX); Rwanda through Kigali (KGL); and Egypt through Cairo (CAI) and Sharm El Sheikh
 (SSH), with a separate ground transfer for Dahab. South American coverage includes Bogotá
 (BOG), Cartagena (CTG), Lima (LIM), São Paulo (GRU), Rio de Janeiro Galeão (GIG), Buenos Aires
-Ezeiza (EZE) and Santiago, Chile (SCL), alongside the existing regions listed in the guide.
+Ezeiza (EZE), Recife (REC), Fortaleza (FOR) and Salvador (SSA). Central America includes
+Panama City Tocumen (PTY) and San José, Costa Rica (SJO); the Caribbean includes Punta Cana
+(PUJ) and Santo Domingo (SDQ). Santiago, Chile (SCL) is no longer monitored by the regional scan.
 The private scanner configuration and its selected alert regions control actual searches;
 the public board shows a destination only after a fare qualifies.
 

@@ -322,7 +322,10 @@ export default function DocumentationPage() {
                 East Africa includes Zanzibar (ZNZ) and Kigali, Rwanda (KGL). Egypt includes Cairo (CAI) and Sharm El Sheikh (SSH), the arrival airport for the Dahab area. Travel onward to Dahab requires a separate ground transfer, which is not included in the flight fare.
               </p>
               <p className="mt-4 text-sm leading-7 text-slate-300">
-                Japan includes Tokyo Narita (NRT), Tokyo Haneda (HND) and Osaka Kansai (KIX). South America includes Bogotá (BOG), Cartagena (CTG), Lima (LIM), São Paulo (GRU), Rio de Janeiro Galeão (GIG), Buenos Aires Ezeiza (EZE) and Santiago, Chile (SCL).
+                Japan includes Tokyo Narita (NRT), Tokyo Haneda (HND) and Osaka Kansai (KIX). South America includes Bogotá (BOG), Cartagena (CTG), Lima (LIM), São Paulo (GRU), Rio de Janeiro Galeão (GIG), Buenos Aires Ezeiza (EZE), Recife (REC), Fortaleza (FOR) and Salvador (SSA).
+              </p>
+              <p className="mt-4 text-sm leading-7 text-slate-300">
+                Central America includes Panama City Tocumen (PTY) and San José, Costa Rica (SJO). Caribbean coverage includes Punta Cana (PUJ) and Santo Domingo (SDQ) in the Dominican Republic. These routes are monitored for occasional bargains under the same price limits as the rest of the board.
               </p>
               <p className="mt-4 text-sm leading-7 text-slate-300">
                 The Maldives scan includes Malé (MLE). South India includes Bengaluru (BLR), Chennai (MAA) and Kochi (COK). Latin America also includes Cancún (CUN) and Mexico City (MEX).
