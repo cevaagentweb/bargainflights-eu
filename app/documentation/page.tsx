@@ -319,7 +319,7 @@ export default function DocumentationPage() {
                 ))}
               </div>
               <p className="mt-5 text-sm leading-7 text-slate-300">
-                East Africa includes Zanzibar (ZNZ) and Kigali, Rwanda (KGL). Egypt includes Cairo (CAI) and Sharm El Sheikh (SSH), the arrival airport for the Dahab area. Travel onward to Dahab requires a separate ground transfer, which is not included in the flight fare.
+                East Africa includes Zanzibar (ZNZ), Kigali, Rwanda (KGL), and Mombasa, Kenya (MBA). Egypt includes Cairo (CAI) and Sharm El Sheikh (SSH), the arrival airport for the Dahab area. Travel onward to Dahab requires a separate ground transfer, which is not included in the flight fare.
               </p>
               <p className="mt-4 text-sm leading-7 text-slate-300">
                 Japan includes Tokyo Narita (NRT), Tokyo Haneda (HND) and Osaka Kansai (KIX). South America includes Bogotá (BOG), Cartagena (CTG), Lima (LIM), São Paulo (GRU), Rio de Janeiro Galeão (GIG), Buenos Aires Ezeiza (EZE), Recife (REC), Fortaleza (FOR) and Salvador (SSA).

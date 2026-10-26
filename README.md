@@ -32,7 +32,7 @@ Without Redis credentials the site safely displays the included three-deal Zanzi
 ## Monitored destinations
 
 The regional scanner covers Japan through Tokyo Narita (NRT), Tokyo Haneda (HND) and Osaka
-Kansai (KIX); Rwanda through Kigali (KGL); and Egypt through Cairo (CAI) and Sharm El Sheikh
+Kansai (KIX); Rwanda through Kigali (KGL); Kenya through Mombasa (MBA); and Egypt through Cairo (CAI) and Sharm El Sheikh
 (SSH), with a separate ground transfer for Dahab. South American coverage includes Bogotá
 (BOG), Cartagena (CTG), Lima (LIM), São Paulo (GRU), Rio de Janeiro Galeão (GIG), Buenos Aires
 Ezeiza (EZE), Recife (REC), Fortaleza (FOR) and Salvador (SSA). Central America includes
