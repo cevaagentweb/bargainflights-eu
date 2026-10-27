@@ -1,0 +1,26 @@
+{
+  "updatedAt": "2026-10-27",
+  "basis": "The user's two hand-drawn map boundaries, measured from the Vienna base; these tiers do not change scan coverage.",
+  "standardOneWayEur": 221,
+  "fartherOneWayEur": 330,
+  "standardRoundTripEur": 440,
+  "fartherRoundTripEur": 660,
+  "homeAirports": ["VIE", "BUD", "PRG"],
+  "fartherRegions": ["south america", "southeast asia", "oceania"],
+  "fartherCountries": [
+    "argentina", "bolivia", "brazil", "chile", "colombia", "ecuador", "french guiana", "guyana", "paraguay", "peru", "suriname", "uruguay", "venezuela",
+    "nicaragua", "costa rica", "panama",
+    "antigua", "antigua and barbuda", "barbados", "guadeloupe", "martinique", "trinidad", "trinidad and tobago", "aruba", "curacao", "bonaire", "grenada", "saint lucia", "st. lucia", "saint vincent and the grenadines",
+    "brunei", "cambodia", "indonesia", "laos", "malaysia", "myanmar", "philippines", "singapore", "thailand", "timor-leste", "east timor", "vietnam",
+    "japan", "south korea", "taiwan", "hong kong", "macao", "macau",
+    "madagascar", "mauritius", "reunion",
+    "australia", "new zealand", "papua new guinea", "fiji", "new caledonia", "vanuatu", "samoa", "tonga", "french polynesia"
+  ],
+  "fartherAirportCodes": [
+    "BOG", "CTG", "GRU", "GIG", "REC", "FOR", "SSA", "EZE", "LIM",
+    "PTY", "SJO", "POS", "TAB", "AUA", "CUR", "BGI", "ANU", "FDF", "PTP",
+    "BKK", "SIN", "DPS", "KUL", "MNL", "SGN", "HKT", "NRT", "HND", "KIX", "ICN", "TPE", "PEK", "PVG", "SYX",
+    "TNR", "MRU", "RUN", "SYD", "MEL", "AKL"
+  ],
+  "standardAirportCodes": ["CUN", "MEX", "HAV", "MBJ", "PUJ", "SDQ", "POP", "MLE", "SEZ", "BLR", "MAA", "COK", "CPT", "JNB", "ZNZ", "KGL", "MBA", "CAI", "SSH"]
+}

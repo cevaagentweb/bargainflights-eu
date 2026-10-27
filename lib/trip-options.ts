@@ -1,7 +1,8 @@
 import type { PublicDeal } from "@/lib/feed-store";
+import { oneWayLimitForDeal, pairLimitForDeals, STANDARD_ONE_WAY_EUR, STANDARD_ROUND_TRIP_EUR } from "@/lib/price-policy";
 
-export const ONE_WAY_LIMIT_EUR = 221;
-export const ROUND_TRIP_LIMIT_EUR = 440;
+export const ONE_WAY_LIMIT_EUR = STANDARD_ONE_WAY_EUR;
+export const ROUND_TRIP_LIMIT_EUR = STANDARD_ROUND_TRIP_EUR;
 
 export type PairableDeal = PublicDeal & {
   status?: "active" | "gone";
@@ -62,7 +63,7 @@ export function findTripOptions(
   candidates: PairableDeal[],
   limit = 8,
 ): TripOption[] {
-  if (!isOneWay(selected) || selected.priceEur >= ONE_WAY_LIMIT_EUR) return [];
+  if (!isOneWay(selected) || selected.priceEur >= oneWayLimitForDeal(selected)) return [];
 
   const selectedDirection = dealDirection(selected);
   const selectedMarket = dealMarketCode(selected);
@@ -78,7 +79,7 @@ export function findTripOptions(
   return candidates
     .filter((candidate) => {
       if (candidate.id === selected.id || !isOneWay(candidate)) return false;
-      if (candidate.priceEur >= ONE_WAY_LIMIT_EUR) return false;
+      if (candidate.priceEur >= oneWayLimitForDeal(candidate)) return false;
       if (dealDirection(candidate) === selectedDirection) return false;
       if (!allowedMarkets.has(dealMarketCode(candidate))) return false;
       const candidateDate = dateScore(candidate.departureDate);
@@ -89,7 +90,7 @@ export function findTripOptions(
       if (gapDays < 1 || gapDays > 90) return false;
       if (selectedDirection === "outbound" && candidateDate <= selectedDate) return false;
       if (selectedDirection === "return" && candidateDate >= selectedDate) return false;
-      return selected.priceEur + candidate.priceEur <= ROUND_TRIP_LIMIT_EUR;
+      return selected.priceEur + candidate.priceEur <= pairLimitForDeals(selected, candidate);
     })
     .map((deal) => {
       const candidateDate = dateScore(deal.departureDate);

@@ -63,6 +63,8 @@ function normalizeDeal(value: IncomingDeal, scanFinishedAt: string): PublicDeal 
         ? requiredText(value.originCity, "originCity", 100)
         : requiredText(value.destinationCity, "destinationCity", 100)),
     tripType: requiredText(value.tripType, "tripType", 40),
+    marketCountry: optionalText(value.marketCountry, 100) ?? undefined,
+    marketRegion: optionalText(value.marketRegion, 100) ?? undefined,
     departureDate: dateText(value.departureDate, "departureDate"),
     returnDate:
       value.returnDate === null || value.returnDate === undefined || value.returnDate === ""

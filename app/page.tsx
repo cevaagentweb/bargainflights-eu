@@ -19,6 +19,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { DealAlertForm } from "@/components/deal-alert-form";
 import { TripTypeBadge } from "@/components/trip-type-badge";
+import { isFartherDeal, oneWayLimitForDeal, roundTripLimitForDeal } from "@/lib/price-policy";
 import {
   NativeSelect,
   NativeSelectOption,
@@ -35,6 +36,8 @@ type Deal = {
   routeDirection?: "outbound" | "return";
   marketCode?: string;
   marketCity?: string;
+  marketCountry?: string;
+  marketRegion?: string;
   tripType: string;
   departureDate: string;
   returnDate: string | null;
@@ -119,6 +122,11 @@ function DealFareCard({ deal }: { deal: Deal }) {
           <Badge variant="outline" className="border-white/15 text-slate-300">
             {deal.routeDirection === "return" ? "Return home" : "Going abroad"}
           </Badge>
+          {isFartherDeal(deal) && (
+            <Badge variant="outline" className="border-amber-300/25 text-amber-200">
+              Farther area · under €{deal.tripType.toLowerCase().includes("round") ? roundTripLimitForDeal(deal) : oneWayLimitForDeal(deal)}
+            </Badge>
+          )}
         </div>
         <p className="text-2xl font-black tracking-tight text-amber-300">
           {currency.format(deal.priceEur)}
@@ -337,7 +345,7 @@ export default function Home() {
           <div>
             <p className="font-mono text-xs uppercase tracking-[0.2em] text-cyan-300">Browse by location</p>
             <h2 className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">One place, all its cheap dates.</h2>
-            <p className="mt-2 text-sm text-slate-400">See the best price for each location first. Open a place to compare every date, route and fare. One-way fares stay under €221; direct round trips stay under €440.</p>
+            <p className="mt-2 text-sm text-slate-400">See the best price for each location first. Open a place to compare every date, route and fare. Nearer areas: under €221 one way / €440 return. Farther mapped areas: under €330 one way / €660 return.</p>
           </div>
 
           <div className="grid grid-cols-2 gap-3 sm:flex sm:flex-wrap sm:items-center">
@@ -477,7 +485,7 @@ export default function Home() {
         <div className="mt-8 grid gap-6 border-t border-white/10 pt-8 lg:grid-cols-[1fr_auto] lg:items-center">
           <div>
             <p className="flex items-center gap-2 font-semibold text-white"><ArrowRight className="size-4 text-amber-300" /> How this board works</p>
-            <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-400">Independent scans check selected destinations and Condor itineraries from Vienna to destinations outside Europe. Condor fares must be under €221 and in Google Flights&apos; Low price range. Prices move quickly, so always confirm the final fare and conditions on Google Flights before booking.</p>
+            <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-400">Independent scans check selected destinations and Condor itineraries from Vienna to destinations outside Europe. Condor one-way fares must be under €221 for nearer areas or €330 for farther mapped areas, and in Google Flights&apos; Low price range. Prices move quickly, so always confirm the final fare and conditions on Google Flights before booking.</p>
           </div>
           <p className="font-mono text-xs uppercase tracking-[0.16em] text-slate-600">BargainFlights.eu</p>
         </div>

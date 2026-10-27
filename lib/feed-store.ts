@@ -12,6 +12,8 @@ export type PublicDeal = {
   routeDirection?: "outbound" | "return";
   marketCode?: string;
   marketCity?: string;
+  marketCountry?: string;
+  marketRegion?: string;
   tripType: string;
   departureDate: string;
   returnDate: string | null;

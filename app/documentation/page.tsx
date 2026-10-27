@@ -63,7 +63,7 @@ const faqs = [
   {
     question: "Are the fares one-way or return?",
     answer:
-      "Both can appear. Outbound and homebound one-way fares must be below €221, while direct round-trip results must be below €440. A deal page can also pair two one-way fares from the same market or selected nearby hubs. Every card identifies the trip type and shows the return date when one is part of the result.",
+      "Both can appear. Nearer destinations use strict limits below €221 one way and €440 return. Farther mapped areas use below €330 one way and €660 return, including homebound flights. A deal page can also pair two one-way fares from the same market or selected nearby hubs. Every card identifies the trip type and shows the return date when one is part of the result.",
   },
   {
     question: "How do I request another departure city?",
@@ -222,6 +222,12 @@ export default function DocumentationPage() {
                     The current public board focuses on fares below its configured deal ceiling. Price is the first filter because it is objective and easy to compare, but a low number alone does not make every itinerary good.
                   </p>
                   <p>
+                    Nearer areas must be below €221 one way or €440 return. Farther mapped areas must be below €330 one way or €660 return. The same destination tier applies when flying home.
+                  </p>
+                  <p>
+                    The farther tier covers South America; Panama, Costa Rica and the southern/eastern Caribbean, including Barbados and Antigua; Southeast Asia, Japan, South Korea, Taiwan and the monitored eastern Chinese airports; Madagascar, Mauritius and Réunion; and Australia, New Zealand and Oceania. Cancún, Jamaica, the Dominican Republic, India, the Maldives, Seychelles and mainland Africa retain the nearer tier. These price tiers do not add destinations or enable unselected scan regions.
+                  </p>
+                  <p>
                     Check the trip type, number of stops, total journey, baggage rules, airport changes and connection times. A €140 one-way fare and a €280 return fare answer different travel needs. A long overnight connection may be worthwhile for one traveller and useless for another.
                   </p>
                   <p>
@@ -337,7 +343,7 @@ export default function DocumentationPage() {
                 The Maldives scan includes Malé (MLE). South India includes Bengaluru (BLR), Chennai (MAA) and Kochi (COK). Latin America also includes Cancún (CUN) and Mexico City (MEX).
               </p>
               <p className="mt-4 text-sm leading-7 text-slate-300">
-                A separate Condor scan checks complete one-way itineraries from Vienna to every non-European destination in Condor&apos;s published timetable. It checks nearby departure dates daily and later dates through a weekly cycle. A fare appears only when it is strictly below €221 and falls in Google Flights&apos; Low price range for that route and date.
+                A separate Condor scan checks complete one-way itineraries from Vienna to every non-European destination in Condor&apos;s published timetable. It checks nearby departure dates daily and later dates through a weekly cycle. A fare appears only when it is strictly below its destination&apos;s €221 or €330 ceiling and falls in Google Flights&apos; Low price range for that route and date.
               </p>
               <p className="mt-7 text-sm leading-7 text-slate-400">
                 Coverage changes as the scanner is refined. The deal board, not this list, is the authoritative view of what has qualified most recently.

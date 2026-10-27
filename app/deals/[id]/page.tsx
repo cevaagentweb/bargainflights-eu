@@ -21,8 +21,6 @@ import {
   dealDirection,
   dealMarketCode,
   findTripOptions,
-  ONE_WAY_LIMIT_EUR,
-  ROUND_TRIP_LIMIT_EUR,
   type PairableDeal,
 } from "@/lib/trip-options";
 
@@ -162,7 +160,7 @@ export default async function DealOptionsPage({
           <p className="font-mono text-xs uppercase tracking-[0.18em] text-cyan-300">Flight-only combinations</p>
           <h2 className="mt-2 text-3xl font-bold tracking-tight text-white">{optionsHeading}</h2>
           <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-400">
-            Each one-way leg must be below €{ONE_WAY_LIMIT_EUR}; the two displayed fares together must be no more than €{ROUND_TRIP_LIMIT_EUR}.
+            Each leg must be below its destination&apos;s €221 or €330 one-way ceiling. The two displayed fares together must be no more than €440, or €660 when a farther destination is involved.
           </p>
 
           {isRoundTrip ? (

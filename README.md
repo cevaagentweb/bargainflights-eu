@@ -10,7 +10,7 @@ The site also includes a persistent active-and-expired deal archive at `/history
 pages that pair opposite one-way legs from the same market or selected nearby hubs, a long-form
 guide at `/documentation`, an expansion-interest form, FAQ structured data, canonical metadata,
 `robots.txt`, and an XML sitemap. Pair totals include only the displayed flight fares and are capped
-at €440; positioning travel and transfers are intentionally excluded.
+at €440 for nearer areas or €660 when a farther destination is involved; positioning travel and transfers are intentionally excluded.
 
 The homepage also has a separate flight-alert interest form. It collects consented addresses only;
 it does not send emails. A small site-wide footer shows an approximate count of unique visitors
@@ -30,6 +30,13 @@ This package is prepared for GitHub and Vercel. The browser reads the current fe
 Without Redis credentials the site safely displays the included three-deal Zanzibar seed feed.
 
 ## Monitored destinations
+
+`data/price-policy.json` defines the destination tiers from the user's maps of 27 October 2026.
+Nearer areas use strict limits below €221 one way / €440 return; farther mapped areas use
+below €330 one way / €660 return. Both scanners use these tiers, including return-home
+flights, while Condor still requires Google's Low price evidence. Scan destinations,
+enabled flags, selected regions and schedules are unchanged. The private scanner keeps an
+identical copy of this file as `price_policy.json` beside `price_policy.py`.
 
 The regional scanner covers Japan through Tokyo Narita (NRT), Tokyo Haneda (HND) and Osaka
 Kansai (KIX); Rwanda through Kigali (KGL); Kenya through Mombasa (MBA); and Egypt through Cairo (CAI) and Sharm El Sheikh
