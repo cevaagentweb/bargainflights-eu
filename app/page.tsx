@@ -68,7 +68,7 @@ type LocationGroup = {
   bestDeal: Deal;
   earliestDate: string;
   deals: Deal[];
-  dates: Array<{ date: string; deals: Deal[] }>;
+  dateCount: number;
   outboundBest: number | null;
   returnBest: number | null;
 };
@@ -116,6 +116,10 @@ function DealFareCard({ deal }: { deal: Deal }) {
 
   return (
     <article className="rounded-xl border border-white/10 bg-[#0b1722] p-4 sm:p-5">
+      <p className="mb-3 flex items-center gap-2 text-sm font-semibold text-white">
+        <CalendarDays className="size-4 shrink-0 text-cyan-300" />
+        {formatDate(deal.departureDate)}
+      </p>
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div className="flex flex-wrap items-center gap-2">
           <TripTypeBadge tripType={deal.tripType} />
@@ -234,21 +238,15 @@ export default function Home() {
 
     return [...byLocation.entries()].map(([key, deals]) => {
       const first = deals[0];
-      const bestDeal = deals.reduce((best, deal) =>
-        deal.priceEur < best.priceEur ? deal : best,
+      const cheapestFirst = [...deals].sort((a, b) =>
+        a.priceEur - b.priceEur || a.departureDate.localeCompare(b.departureDate),
       );
-      const byDate = new Map<string, Deal[]>();
-      for (const deal of deals) {
-        const current = byDate.get(deal.departureDate) || [];
-        current.push(deal);
-        byDate.set(deal.departureDate, current);
-      }
-      const dates = [...byDate.entries()]
-        .sort(([a], [b]) => a.localeCompare(b))
-        .map(([date, dateDeals]) => ({
-          date,
-          deals: dateDeals.sort((a, b) => a.priceEur - b.priceEur),
-        }));
+      const dates = [...new Set(deals.map((deal) => deal.departureDate))].sort();
+      const orderedDeals = sort === "date"
+        ? [...deals].sort((a, b) =>
+          a.departureDate.localeCompare(b.departureDate) || a.priceEur - b.priceEur,
+        )
+        : cheapestFirst;
       const lowestInDirection = (value: "outbound" | "return") => {
         const matching = deals.filter((deal) => (deal.routeDirection ?? "outbound") === value);
         return matching.length ? Math.min(...matching.map((deal) => deal.priceEur)) : null;
@@ -259,10 +257,10 @@ export default function Home() {
         city: first.marketCity ||
           (first.routeDirection === "return" ? first.originCity : first.destinationCity),
         region: first.region,
-        bestDeal,
-        earliestDate: dates[0].date,
-        deals,
-        dates,
+        bestDeal: cheapestFirst[0],
+        earliestDate: dates[0],
+        deals: orderedDeals,
+        dateCount: dates.length,
         outboundBest: lowestInDirection("outbound"),
         returnBest: lowestInDirection("return"),
       };
@@ -370,8 +368,8 @@ export default function Home() {
 
             <label className="sr-only" htmlFor="sort-filter">Sort deals</label>
             <NativeSelect id="sort-filter" value={sort} onChange={(event) => setSort(event.target.value)} className="min-w-32 border-white/15 bg-[#0c1824] text-slate-100">
-              <NativeSelectOption value="price">Cheapest location</NativeSelectOption>
-              <NativeSelectOption value="date">Soonest location</NativeSelectOption>
+              <NativeSelectOption value="price">Cheapest first</NativeSelectOption>
+              <NativeSelectOption value="date">Soonest first</NativeSelectOption>
             </NativeSelect>
 
             <Button type="button" variant="outline" onClick={() => void loadDeals()} disabled={loading} className="border-white/15 bg-[#0c1824] text-slate-100 hover:bg-white/10 hover:text-white">
@@ -411,7 +409,7 @@ export default function Home() {
                       <div>
                         <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-cyan-300">#{String(index + 1).padStart(2, "0")} · {location.region}</p>
                         <h3 className="mt-2 text-2xl font-black text-white sm:text-3xl">{location.city} <span className="font-mono text-sm font-semibold text-slate-500">{location.key}</span></h3>
-                        <p className="mt-2 text-sm text-slate-400">{location.dates.length} travel date{location.dates.length === 1 ? "" : "s"} · {location.deals.length} fare{location.deals.length === 1 ? "" : "s"}</p>
+                        <p className="mt-2 text-sm text-slate-400">{location.dateCount} travel date{location.dateCount === 1 ? "" : "s"} · {location.deals.length} fare{location.deals.length === 1 ? "" : "s"}</p>
                       </div>
                       <div className="col-span-2 row-start-2 flex flex-wrap gap-2 text-xs font-semibold lg:col-auto lg:row-auto">
                         {location.outboundBest !== null && <span className="rounded-full border border-cyan-300/25 bg-cyan-300/10 px-3 py-1.5 text-cyan-100">Fly there from {currency.format(location.outboundBest)}</span>}
@@ -430,19 +428,9 @@ export default function Home() {
                     {expanded && (
                       <div id={`location-${location.key}`} className="border-t border-white/10 bg-[#08131d] p-5 sm:p-6">
                         <h4 className="text-lg font-bold text-white">Dates and fares for {location.city}</h4>
-                        <p className="mt-1 text-sm text-slate-400">All current options are shown below, earliest departure first.</p>
-                        <div className="mt-5 space-y-5">
-                          {location.dates.map(({ date, deals }) => (
-                            <section key={date} className="grid gap-3 border-b border-white/10 pb-5 last:border-b-0 last:pb-0 md:grid-cols-[170px_minmax(0,1fr)]">
-                              <div>
-                                <p className="flex items-center gap-2 font-semibold text-white"><CalendarDays className="size-4 text-cyan-300" />{formatDate(date)}</p>
-                                <p className="mt-1 text-xs text-slate-500">{deals.length} fare{deals.length === 1 ? "" : "s"} on this date</p>
-                              </div>
-                              <div className="grid gap-3 xl:grid-cols-2">
-                                {deals.map((deal) => <DealFareCard key={deal.id} deal={deal} />)}
-                              </div>
-                            </section>
-                          ))}
+                        <p className="mt-1 text-sm text-slate-400">{sort === "date" ? "All current options are shown below, earliest departure first." : "All current options are shown below, cheapest to most expensive."}</p>
+                        <div className="mt-5 grid gap-3 xl:grid-cols-2">
+                          {location.deals.map((deal) => <DealFareCard key={deal.id} deal={deal} />)}
                         </div>
                       </div>
                     )}

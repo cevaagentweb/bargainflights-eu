@@ -3,7 +3,9 @@
 Public bargain-flight board for unusually cheap fares from Vienna, Budapest and Prague.
 
 The live board groups current fares by destination or return-home city. Each location appears
-once with its lowest fare; opening it reveals all available dates and fare options. The home-airport
+once with its lowest fare; opening it reveals all fares from cheapest to most expensive, with
+departure dates on each card. The sort control can switch both locations and their fares to
+earliest departure first. The home-airport
 filter covers both outbound departures and flights returning to that airport.
 
 The site also includes a persistent active-and-expired deal archive at `/history`, journey-detail
