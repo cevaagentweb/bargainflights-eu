@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 import HistoryClient from "./history-client";
-import { readDealHistory } from "@/lib/history-store";
+import { readHistoryLocations } from "@/lib/history-store";
 
 export const dynamic = "force-dynamic";
 
@@ -19,6 +19,6 @@ export const metadata: Metadata = {
 };
 
 export default async function HistoryPage() {
-  const initialData = await readDealHistory({ status: "past", limit: 24 });
+  const initialData = await readHistoryLocations("past");
   return <HistoryClient initialData={initialData} />;
 }

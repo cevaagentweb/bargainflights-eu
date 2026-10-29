@@ -8,7 +8,10 @@ departure dates on each card. The sort control can switch both locations and the
 earliest departure first. The home-airport
 filter covers both outbound departures and flights returning to that airport.
 
-The site also includes a persistent active-and-expired deal archive at `/history`, journey-detail
+The site also includes a persistent active-and-expired deal archive at `/history`, grouped into
+one expandable card per location. Each card summarizes the complete filtered history; opening
+it loads that location's fares in price order, with more fares available inside the same card.
+The archive keeps its past/active/gone filters and recorded dates. It also has journey-detail
 pages that pair opposite one-way legs from the same market or selected nearby hubs, a long-form
 guide at `/documentation`, an expansion-interest form, FAQ structured data, canonical metadata,
 `robots.txt`, and an XML sitemap. Pair totals include only the displayed flight fares and are capped

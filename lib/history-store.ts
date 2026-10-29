@@ -1,4 +1,6 @@
+import { unstable_cache } from "next/cache";
 import type { PublicDeal, PublicFeed } from "@/lib/feed-store";
+import { groupHistoryLocations, historyLocationFares } from "@/lib/history-locations";
 import { todayInBratislava } from "@/lib/local-date";
 import { redisCommand, redisPipeline, redisSettings } from "@/lib/redis";
 
@@ -237,4 +239,51 @@ export async function readDealHistory(options?: {
 export async function readDealHistoryEntry(id: string) {
   if (!redisSettings() || !id) return null;
   return parseEntry(await redisCommand(["HGET", ENTRIES_KEY, id]));
+}
+
+// Cache the archive on the server so destination summaries cover every fare,
+// while the browser only downloads a location's fares when it is opened.
+const readHistoryIndex = unstable_cache(async () => {
+  const [idsValue, metaValue] = await redisPipeline([
+    ["ZRANGE", ALL_ORDER_KEY, 0, -1],
+    ["GET", META_KEY],
+  ]);
+  const ids = Array.isArray(idsValue)
+    ? idsValue.filter((value): value is string => typeof value === "string")
+    : [];
+  return { ids, lastUpdated: parseMeta(metaValue).lastUpdated };
+}, ["deal-history-location-index-v1"], { revalidate: 60 });
+
+// Keep cache entries and Redis responses small even as the archive grows.
+const readHistoryBatch = unstable_cache(async (ids: string[]) => {
+  const values = await redisCommand<unknown[]>(["HMGET", ENTRIES_KEY, ...ids]);
+  return values.map(parseEntry).filter((entry): entry is DealHistoryEntry => entry !== null);
+}, ["deal-history-location-batch-v1"], { revalidate: 60 });
+
+async function readHistoryArchive() {
+  const { ids, lastUpdated } = await readHistoryIndex();
+  const entries: DealHistoryEntry[] = [];
+  for (let offset = 0; offset < ids.length; offset += 600) {
+    const batches = [];
+    for (let index = offset; index < Math.min(offset + 600, ids.length); index += 150) {
+      batches.push(readHistoryBatch(ids.slice(index, index + 150)));
+    }
+    entries.push(...(await Promise.all(batches)).flat());
+  }
+  return { entries, lastUpdated };
+}
+
+export async function readHistoryLocations(status: HistoryStatusFilter = "past") {
+  const archive = redisSettings() ? await readHistoryArchive() : { entries: [], lastUpdated: null };
+  return groupHistoryLocations(archive.entries, status, todayInBratislava(), archive.lastUpdated);
+}
+
+export async function readHistoryLocationFares(options: {
+  market: string;
+  status: HistoryStatusFilter;
+  offset?: number;
+  limit?: number;
+}) {
+  const archive = redisSettings() ? await readHistoryArchive() : { entries: [], lastUpdated: null };
+  return historyLocationFares(archive.entries, options, todayInBratislava(), archive.lastUpdated);
 }

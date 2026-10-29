@@ -2,55 +2,25 @@
 
 import { useCallback, useState } from "react";
 import Link from "next/link";
-import {
-  Archive,
-  ArrowLeft,
-  CalendarDays,
-  Clock3,
-  ExternalLink,
-  Plane,
-  RefreshCw,
-  Route,
-} from "lucide-react";
+import { Archive, ArrowLeft, ChevronDown, Plane, RefreshCw } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { TripTypeBadge } from "@/components/trip-type-badge";
-import type {
-  HistoryPageData,
-  HistoryStatusFilter,
-} from "@/lib/history-store";
-import { todayInBratislava } from "@/lib/local-date";
+import type { HistoryStatusFilter } from "@/lib/history-store";
+import type { HistoryLocationsData } from "@/lib/history-locations";
+import HistoryLocationFares from "./history-location-fares";
 
 const currency = new Intl.NumberFormat("en-IE", {
-  style: "currency",
-  currency: "EUR",
-  maximumFractionDigits: 0,
+  style: "currency", currency: "EUR", maximumFractionDigits: 0,
 });
-
-function formatTravelDate(value: string) {
-  const parsed = new Date(`${value}T12:00:00Z`);
-  if (Number.isNaN(parsed.getTime())) return value;
-  return new Intl.DateTimeFormat("en-GB", {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-    timeZone: "UTC",
-  }).format(parsed);
-}
 
 function formatObservedAt(value: string | null) {
   if (!value) return "Not available";
   const parsed = new Date(value);
   if (Number.isNaN(parsed.getTime())) return value;
   return new Intl.DateTimeFormat("en-GB", {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-    timeZone: "Europe/Bratislava",
+    day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit", timeZone: "Europe/Bratislava",
   }).format(parsed);
 }
 
@@ -61,54 +31,35 @@ const filters: Array<{ value: HistoryStatusFilter; label: string }> = [
   { value: "gone", label: "No longer listed" },
 ];
 
-export default function HistoryClient({
-  initialData,
-}: {
-  initialData: HistoryPageData;
-}) {
+export default function HistoryClient({ initialData }: { initialData: HistoryLocationsData }) {
   const [data, setData] = useState(initialData);
   const [filter, setFilter] = useState<HistoryStatusFilter>("past");
+  const [openLocation, setOpenLocation] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const loadHistory = useCallback(
-    async (nextFilter: HistoryStatusFilter, offset = 0, append = false) => {
-      setLoading(true);
-      setError(null);
-      try {
-        const response = await fetch(
-          `/api/history?status=${nextFilter}&offset=${offset}&limit=24&t=${Date.now()}`,
-          { cache: "no-store" },
-        );
-        if (!response.ok) throw new Error("The history is temporarily unavailable.");
-        const payload = (await response.json()) as HistoryPageData;
-        setData((current) =>
-          append
-            ? { ...payload, deals: [...current.deals, ...payload.deals] }
-            : payload,
-        );
-      } catch (caught) {
-        setError(caught instanceof Error ? caught.message : "Could not load the history.");
-      } finally {
-        setLoading(false);
-      }
-    },
-    [],
-  );
-
-  const selectFilter = (nextFilter: HistoryStatusFilter) => {
-    setFilter(nextFilter);
-    void loadHistory(nextFilter);
-  };
+  const loadHistory = useCallback(async (nextFilter: HistoryStatusFilter) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await fetch(`/api/history?view=locations&status=${nextFilter}&t=${Date.now()}`, { cache: "no-store" });
+      if (!response.ok) throw new Error("The history is temporarily unavailable.");
+      setData(await response.json() as HistoryLocationsData);
+      setFilter(nextFilter);
+      setOpenLocation(null);
+    } catch (caught) {
+      setError(caught instanceof Error ? caught.message : "Could not load the history.");
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
   return (
     <main className="min-h-screen bg-[#071019] text-[#f4f8fb]">
       <header className="sticky top-0 z-30 border-b border-white/10 bg-[#071019]/95 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 sm:px-8">
           <Link href="/" className="flex items-center gap-3" aria-label="BargainFlights.eu home">
-            <span className="grid size-9 place-items-center rounded-xl border border-cyan-300/25 bg-cyan-300/10 text-cyan-300">
-              <Plane className="size-4 -rotate-12" />
-            </span>
+            <span className="grid size-9 place-items-center rounded-xl border border-cyan-300/25 bg-cyan-300/10 text-cyan-300"><Plane className="size-4 -rotate-12" /></span>
             <span>
               <span className="block text-sm font-bold tracking-[0.08em] text-white">BARGAINFLIGHTS.EU</span>
               <span className="block text-[10px] uppercase tracking-[0.22em] text-slate-500">Deal archive</span>
@@ -123,21 +74,13 @@ export default function HistoryClient({
 
       <section className="border-b border-white/10 bg-[radial-gradient(circle_at_top_left,rgba(34,211,238,0.15),transparent_40%),linear-gradient(180deg,#0a1722_0%,#071019_100%)]">
         <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-20">
-          <Badge className="border border-amber-300/30 bg-amber-300/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-amber-200">
-            <Archive className="mr-2 size-3.5" /> Deal history
-          </Badge>
+          <Badge className="border border-amber-300/30 bg-amber-300/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-amber-200"><Archive className="mr-2 size-3.5" /> Deal history</Badge>
           <h1 className="mt-6 max-w-4xl text-4xl font-black tracking-[-0.04em] text-white sm:text-6xl">Bargains that came—and went.</h1>
-          <p className="mt-5 max-w-3xl text-base leading-7 text-slate-300 sm:text-lg">Every daily scan leaves a record. Scroll through bargains with past departure dates, or explore every fare the scanner has discovered.</p>
-
-          <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {[
-              ["All recorded", data.counts.all],
-              ["Past departures", data.counts.past],
-              ["Active now", data.counts.active],
-              ["No longer listed", data.counts.gone],
-            ].map(([label, value]) => (
-              <div key={String(label)} className="rounded-2xl border border-white/10 bg-white/[0.035] p-5">
-                <p className="font-mono text-xs uppercase tracking-[0.16em] text-slate-500">{label}</p>
+          <p className="mt-5 max-w-3xl text-base leading-7 text-slate-300 sm:text-lg">One location, all its recorded bargains. Open a destination to explore past dates and fares, from cheapest to most expensive.</p>
+          <div className="mt-10 grid grid-cols-2 gap-3 lg:grid-cols-4">
+            {[["All recorded", data.counts.all], ["Past departures", data.counts.past], ["Active now", data.counts.active], ["No longer listed", data.counts.gone]].map(([label, value]) => (
+              <div key={String(label)} className="rounded-2xl border border-white/10 bg-white/[0.035] p-4 sm:p-5">
+                <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-slate-500 sm:text-xs">{label}</p>
                 <p className="mt-2 text-3xl font-black text-white">{value}</p>
               </div>
             ))}
@@ -145,108 +88,74 @@ export default function HistoryClient({
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-5 py-12 sm:px-8 sm:py-16">
+      <section className="mx-auto max-w-7xl px-5 py-12 sm:px-8 sm:py-16" aria-busy={loading}>
         <div className="flex flex-col gap-5 border-b border-white/10 pb-7 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p className="font-mono text-xs uppercase tracking-[0.18em] text-cyan-300">Observed fares</p>
+            <p className="font-mono text-xs uppercase tracking-[0.18em] text-cyan-300">Browse history by location</p>
             <h2 className="mt-2 text-3xl font-bold tracking-tight text-white">Flight bargain archive</h2>
             <p className="mt-2 text-sm text-slate-400">Last history update: {formatObservedAt(data.lastUpdated)}</p>
           </div>
           <div className="flex flex-wrap gap-2" role="group" aria-label="History status filter">
             {filters.map((item) => (
-              <button
-                key={item.value}
-                type="button"
-                aria-pressed={filter === item.value}
-                onClick={() => selectFilter(item.value)}
-                className={`rounded-full border px-4 py-2 text-xs font-semibold transition ${
-                  filter === item.value
-                    ? "border-cyan-300 bg-cyan-300 text-[#041019]"
-                    : "border-white/15 bg-white/[0.025] text-slate-300 hover:border-cyan-300/40 hover:text-white"
-                }`}
-              >
+              <button key={item.value} type="button" aria-pressed={filter === item.value} disabled={loading} onClick={() => void loadHistory(item.value)} className={`rounded-full border px-4 py-2 text-xs font-semibold transition disabled:opacity-50 ${filter === item.value ? "border-cyan-300 bg-cyan-300 text-[#041019]" : "border-white/15 bg-white/[0.025] text-slate-300 hover:border-cyan-300/40 hover:text-white"}`}>
                 {item.label}
               </button>
             ))}
           </div>
         </div>
 
-        {error && (
-          <div className="mt-6 flex items-center justify-between gap-4 border border-rose-400/25 bg-rose-400/10 px-5 py-4 text-sm text-rose-100">
-            <span>{error}</span>
-            <Button variant="outline" size="sm" onClick={() => void loadHistory(filter)} className="border-rose-200/30 bg-transparent text-rose-100"><RefreshCw /> Retry</Button>
-          </div>
-        )}
+        {error && <div role="alert" className="mt-6 flex flex-wrap items-center justify-between gap-4 rounded-xl border border-rose-400/25 bg-rose-400/10 px-5 py-4 text-sm text-rose-100"><span>{error}</span><Button variant="outline" size="sm" disabled={loading} onClick={() => void loadHistory(filter)} className="border-rose-200/30 bg-transparent text-rose-100"><RefreshCw /> Retry</Button></div>}
 
-        {data.deals.length > 0 ? (
-          <div className="mt-8 grid gap-5 lg:grid-cols-2">
-            {data.deals.map((deal) => {
-              const departed = deal.departureDate < todayInBratislava();
-              return (
-              <Card key={deal.id} className="overflow-hidden rounded-none border-white/10 bg-[#0b1721] text-white shadow-none">
-                <CardContent className="p-0">
-                  <div className="flex items-center justify-between gap-4 border-b border-white/10 px-5 py-3">
-                    <span className="font-mono text-xs uppercase tracking-[0.16em] text-slate-500">{deal.routeDirection === "return" ? "Return home · " : ""}{deal.region}</span>
-                    <div className="flex flex-wrap items-center justify-end gap-2">
-                      <TripTypeBadge tripType={deal.tripType} />
-                      <Badge className={departed ? "border border-amber-300/25 bg-amber-300/10 text-amber-200" : deal.status === "active" ? "border border-emerald-300/30 bg-emerald-300/10 text-emerald-200" : "border border-slate-400/20 bg-slate-400/10 text-slate-300"}>
-                        <span className={`mr-2 size-1.5 rounded-full ${departed ? "bg-amber-300" : deal.status === "active" ? "bg-emerald-300" : "bg-slate-500"}`} />
-                        {departed ? "Departed" : deal.status === "active" ? "Active now" : "No longer listed"}
-                      </Badge>
-                    </div>
-                  </div>
-                  <div className="p-5 sm:p-6">
-                    <div className="flex items-start justify-between gap-5">
-                      <div>
-                        <p className="text-sm text-slate-400">{deal.originCity} to {deal.destinationCountry}</p>
-                        <h3 className="mt-1 text-2xl font-black tracking-tight text-white">{deal.origin} <span className="text-cyan-300">→</span> {deal.destination}</h3>
-                        <p className="mt-1 font-semibold text-slate-200">{deal.destinationCity}</p>
+        {loading ? <p role="status" className="mt-8 flex items-center gap-2 text-sm text-slate-400"><RefreshCw className="size-4 animate-spin" /> Loading locations…</p> : data.locations.length > 0 ? (
+          <div className="mt-6">
+            <p className="text-sm text-slate-400"><strong className="text-white">{data.locations.length}</strong> location{data.locations.length === 1 ? "" : "s"} · {data.total} recorded fare{data.total === 1 ? "" : "s"}</p>
+            <p className="mt-1 text-xs text-slate-500">Lowest recorded prices first. Past fares may no longer be available.</p>
+            <div className="mt-5 space-y-3">
+              {data.locations.map((location, index) => {
+                const expanded = openLocation === location.key;
+                return (
+                  <div key={location.key} className={`overflow-hidden rounded-2xl border bg-[#0b1722] transition-colors ${expanded ? "border-cyan-300/45" : "border-white/10 hover:border-cyan-300/30"}`}>
+                    <button type="button" aria-expanded={expanded} aria-controls={expanded ? `history-location-${location.key}` : undefined} onClick={() => setOpenLocation(expanded ? null : location.key)} className="grid w-full grid-cols-[minmax(0,1fr)_auto] gap-4 p-5 text-left transition hover:bg-white/[0.025] sm:p-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto] lg:items-center">
+                      <div className="min-w-0">
+                        <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-cyan-300">#{String(index + 1).padStart(2, "0")} · {location.region}</p>
+                        <h3 className="mt-2 break-words text-2xl font-black text-white sm:text-3xl">{location.city} <span className="font-mono text-sm font-semibold text-slate-500">{location.key}</span></h3>
+                        <p className="mt-2 text-sm text-slate-400">{location.dateCount} travel date{location.dateCount === 1 ? "" : "s"} · {location.fareCount} fare{location.fareCount === 1 ? "" : "s"}</p>
+                        <p className="mt-1 text-xs text-slate-500">{[
+                          location.pastCount > 0 ? `${location.pastCount} departed` : null,
+                          location.activeCount > 0 ? `${location.activeCount} active now` : null,
+                          location.goneCount > 0 ? `${location.goneCount} no longer listed` : null,
+                        ].filter(Boolean).join(" · ")}</p>
                       </div>
-                      <div className="text-right">
-                        <p className="text-3xl font-black tracking-tight text-amber-200">{currency.format(deal.priceEur)}</p>
+                      <div className="col-span-2 row-start-2 flex flex-wrap gap-2 text-xs font-semibold lg:col-auto lg:row-auto">
+                        {location.outboundBest !== null && <span className="rounded-full border border-cyan-300/25 bg-cyan-300/10 px-3 py-1.5 text-cyan-100">Outbound from {currency.format(location.outboundBest)}</span>}
+                        {location.returnBest !== null && <span className="rounded-full border border-emerald-300/25 bg-emerald-300/10 px-3 py-1.5 text-emerald-100">Homebound from {currency.format(location.returnBest)}</span>}
                       </div>
-                    </div>
-
-                    <div className="mt-6 grid gap-3 border-y border-white/10 py-4 text-sm text-slate-300 sm:grid-cols-2">
-                      <p className="flex items-center gap-2"><CalendarDays className="size-4 text-cyan-300" /> {formatTravelDate(deal.departureDate)}{deal.returnDate ? ` – ${formatTravelDate(deal.returnDate)}` : ""}</p>
-                      <p className="flex items-center gap-2"><Route className="size-4 text-cyan-300" /> {deal.stops == null ? "Stops not listed" : deal.stops === 0 ? "Direct" : `${deal.stops} stop${deal.stops === 1 ? "" : "s"}`}</p>
-                      <p className="flex items-center gap-2"><Plane className="size-4 text-cyan-300" /> {deal.airline || "Airline not listed"}</p>
-                      <p className="flex items-center gap-2"><Clock3 className="size-4 text-cyan-300" /> First caught {formatObservedAt(deal.firstSeenAt)}</p>
-                      <p className="flex items-center gap-2"><RefreshCw className="size-4 text-cyan-300" /> Seen in {deal.timesSeen} scan{deal.timesSeen === 1 ? "" : "s"}</p>
-                    </div>
-
-                    <div className="mt-4 flex flex-col gap-1 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between">
-                      <span>Last seen: {formatObservedAt(deal.lastSeenAt)}</span>
-                      {deal.goneAt && <span>Marked gone: {formatObservedAt(deal.goneAt)}</span>}
-                    </div>
-
-                    <div className="mt-5 grid gap-2 sm:grid-cols-[1fr_auto]">
-                      <Button asChild className="bg-cyan-300 font-bold text-[#041019] hover:bg-cyan-200">
-                        <Link href={`/deals/${deal.id}`}>Build trip options</Link>
-                      </Button>
-                      <Button asChild variant="outline" className="border-white/15 bg-transparent text-white hover:bg-white/10">
-                        <a href={deal.googleFlightsUrl} target="_blank" rel="noreferrer" aria-label={deal.status === "active" ? "Open fare directly" : "Recheck this route"}><ExternalLink /></a>
-                      </Button>
-                    </div>
+                      <div className="col-start-2 row-start-1 flex items-center justify-end gap-2 lg:col-auto lg:row-auto">
+                        <div className="max-w-24 text-right">
+                          <p className="text-[10px] uppercase tracking-[0.14em] text-slate-500">Lowest recorded</p>
+                          <p className="mt-1 text-3xl font-black tracking-tight text-amber-300">{currency.format(location.bestDeal.priceEur)}</p>
+                          <div className="mt-1 flex justify-end"><TripTypeBadge tripType={location.bestDeal.tripType} /></div>
+                        </div>
+                        <ChevronDown className={`size-5 shrink-0 text-cyan-300 transition-transform ${expanded ? "rotate-180" : ""}`} />
+                      </div>
+                    </button>
+                    {expanded && (
+                      <div id={`history-location-${location.key}`} className="border-t border-white/10 bg-[#08131d] p-5 sm:p-6">
+                        <h4 className="text-lg font-bold text-white">Recorded dates and fares for {location.city}</h4>
+                        <p className="mt-1 text-sm text-slate-400">Cheapest to most expensive. Each fare shows its travel date and current status.</p>
+                        <HistoryLocationFares key={`${filter}-${location.key}`} market={location.key} filter={filter} />
+                      </div>
+                    )}
                   </div>
-                </CardContent>
-              </Card>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
         ) : (
           <div className="mt-8 border border-dashed border-white/15 bg-white/[0.025] px-6 py-16 text-center">
             <Archive className="mx-auto size-8 text-slate-500" />
             <h3 className="mt-5 text-xl font-bold text-white">No bargains in this view yet</h3>
-            <p className="mx-auto mt-2 max-w-lg text-sm leading-6 text-slate-400">The archive begins with the first scan after history tracking was enabled.</p>
-          </div>
-        )}
-
-        {data.deals.length < data.total && (
-          <div className="mt-10 text-center">
-            <Button disabled={loading} onClick={() => void loadHistory(filter, data.deals.length, true)} className="bg-cyan-300 font-bold text-[#041019] hover:bg-cyan-200">
-              {loading ? <><RefreshCw className="animate-spin" /> Loading</> : "Load more bargains"}
-            </Button>
+            <p className="mx-auto mt-2 max-w-lg text-sm leading-6 text-slate-400">Try All finds to explore the other recorded fares.</p>
           </div>
         )}
       </section>

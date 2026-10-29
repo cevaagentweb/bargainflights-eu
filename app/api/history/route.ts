@@ -1,6 +1,8 @@
 import {
   HistoryStatusFilter,
   readDealHistory,
+  readHistoryLocations,
+  readHistoryLocationFares,
 } from "@/lib/history-store";
 
 export const dynamic = "force-dynamic";
@@ -17,7 +19,15 @@ export async function GET(request: Request) {
         : "all";
     const offset = Number(url.searchParams.get("offset") || 0);
     const limit = Number(url.searchParams.get("limit") || 24);
-    const history = await readDealHistory({ status, offset, limit });
+    const market = url.searchParams.get("market");
+    if (market && !/^[A-Za-z]{3}$/.test(market)) {
+      return Response.json({ error: "Invalid location code." }, { status: 400 });
+    }
+    const history = url.searchParams.get("view") === "locations"
+      ? await readHistoryLocations(status)
+      : market
+        ? await readHistoryLocationFares({ market, status, offset, limit })
+        : await readDealHistory({ status, offset, limit });
     return Response.json(history, {
       headers: {
         "Cache-Control":
