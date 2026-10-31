@@ -160,7 +160,7 @@ export default async function DealOptionsPage({
           <p className="font-mono text-xs uppercase tracking-[0.18em] text-cyan-300">Flight-only combinations</p>
           <h2 className="mt-2 text-3xl font-bold tracking-tight text-white">{optionsHeading}</h2>
           <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-400">
-            Each leg must be below its destination&apos;s €221 or €330 one-way ceiling. The two displayed fares together must be no more than €440, or €660 when a farther destination is involved.
+            Each leg must be below its destination&apos;s €60, €221 or €330 one-way ceiling. The two displayed fares together must be no more than €120 for two budget-area legs, €440 for other nearer areas, or €660 when a farther destination is involved.
           </p>
 
           {isRoundTrip ? (

@@ -15,7 +15,7 @@ The archive keeps its past/active/gone filters and recorded dates. It also has j
 pages that pair opposite one-way legs from the same market or selected nearby hubs, a long-form
 guide at `/documentation`, an expansion-interest form, FAQ structured data, canonical metadata,
 `robots.txt`, and an XML sitemap. Pair totals include only the displayed flight fares and are capped
-at €440 for nearer areas or €660 when a farther destination is involved; positioning travel and transfers are intentionally excluded.
+at €120 for two budget-area legs, €440 for other nearer areas or €660 when a farther destination is involved; positioning travel and transfers are intentionally excluded.
 
 The homepage also has a separate flight-alert interest form. It collects consented addresses only;
 it does not send emails. A small site-wide footer shows an approximate count of unique visitors
@@ -36,12 +36,29 @@ Without Redis credentials the site safely displays the included three-deal Zanzi
 
 ## Monitored destinations
 
-`data/price-policy.json` defines the destination tiers from the user's maps of 27 October 2026.
-Nearer areas use strict limits below €221 one way / €440 return; farther mapped areas use
-below €330 one way / €660 return. Both scanners use these tiers, including return-home
-flights, while Condor still requires Google's Low price evidence. Scan destinations,
-enabled flags, selected regions and schedules are unchanged. The private scanner keeps an
+`data/price-policy.json` defines three destination tiers. Budget areas use strict limits below
+€60 one way / €120 return; other nearer areas use below €221 / €440; farther mapped areas
+use below €330 / €660, following the user's maps of 27 October 2026. Both scanners use these
+tiers, including return-home flights, while Condor still requires Google's Low price evidence.
+The budget alert region and its 24 airports were added on 31 October 2026, together with
+Addis Ababa Bole, Ethiopia (ADD), in the standard tier. Other region selections and schedules
+are unchanged. The current-deals API also applies the tiers to older feed entries; the history
+archive preserves previous recorded fares. The private scanner keeps an
 identical copy of this file as `price_policy.json` beside `price_policy.py`.
+
+Budget airports are Tenerife South (TFS), Tenerife North (TFN), Gran Canaria (LPA),
+Fuerteventura (FUE), Lanzarote (ACE), La Palma (SPC); Faro/Algarve (FAO); Tunis (TUN),
+Monastir (MIR), Djerba (DJE), Enfidha-Hammamet (NBE); Istanbul (IST/SAW), Antalya (AYT),
+İzmir (ADB), Dalaman (DLM), Bodrum (BJV), Ankara (ESB); and Agadir (AGA), Marrakech (RAK),
+Casablanca (CMN), Fès (FEZ), Tangier (TNG), Rabat (RBA). Morocco now uses the budget tier.
+The Condor timetable parser admits selected Canary and Faro airports without admitting
+other Spanish or Portuguese destinations, and refreshes older timetable caches.
+
+Airport names/codes were checked against [Aena](https://www.aena.es/es/aerolineas/aeropuertos-y-destinos/nuestros-aeropuertos.html),
+[VINCI/ANA Faro](https://vinci-airports.com/en/our-airports/portugal/faro-airport/),
+[ONDA](https://www.onda.ma/Je-suis-Passager/Guide-du-voyageur/R%C3%A9seau-a%C3%A9roportuaire),
+[DHMİ](https://dhmi.gov.tr/Sayfalar/slot/Koordinasyon-Parametreleri.aspx), and
+[Ethiopian Airlines](https://www.ethiopianairlines.com/services/services-at-the-airport/addis-ababa-airport).
 
 The regional scanner covers Japan through Tokyo Narita (NRT), Tokyo Haneda (HND) and Osaka
 Kansai (KIX); Rwanda through Kigali (KGL); Kenya through Mombasa (MBA); and Egypt through Cairo (CAI) and Sharm El Sheikh

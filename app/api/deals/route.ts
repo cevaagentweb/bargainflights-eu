@@ -1,4 +1,5 @@
 import { readFeed } from "@/lib/feed-store";
+import { isWithinPriceLimit } from "@/lib/price-policy";
 
 export const dynamic = "force-dynamic";
 
@@ -9,7 +10,7 @@ export async function GET() {
     {
       ...feed,
       deals: feed.deals
-        .filter((deal) => deal.departureDate >= today)
+        .filter((deal) => deal.departureDate >= today && isWithinPriceLimit(deal))
         .sort(
           (a, b) =>
             a.priceEur - b.priceEur ||

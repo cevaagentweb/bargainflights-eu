@@ -1,11 +1,21 @@
 {
-  "updatedAt": "2026-10-27",
-  "basis": "The user's two hand-drawn map boundaries, measured from the Vienna base; these tiers do not change scan coverage.",
+  "updatedAt": "2026-10-31",
+  "basis": "Budget areas requested on 31 October 2026; standard and farther tiers retain the user's 27 October map boundaries from Vienna.",
+  "budgetOneWayEur": 60,
+  "budgetRoundTripEur": 120,
   "standardOneWayEur": 221,
   "fartherOneWayEur": 330,
   "standardRoundTripEur": 440,
   "fartherRoundTripEur": 660,
   "homeAirports": ["VIE", "BUD", "PRG"],
+  "budgetCountries": ["tunisia", "turkey", "turkiye", "morocco"],
+  "budgetRegions": ["canary islands", "algarve"],
+  "budgetAirportCodes": [
+    "TFS", "TFN", "LPA", "FUE", "ACE", "SPC", "VDE", "GMZ", "FAO",
+    "TUN", "MIR", "DJE", "NBE",
+    "IST", "SAW", "AYT", "ADB", "DLM", "BJV", "ESB",
+    "AGA", "RAK", "CMN", "FEZ", "TNG", "RBA"
+  ],
   "fartherRegions": ["south america", "southeast asia", "oceania"],
   "fartherCountries": [
     "argentina", "bolivia", "brazil", "chile", "colombia", "ecuador", "french guiana", "guyana", "paraguay", "peru", "suriname", "uruguay", "venezuela",
@@ -22,5 +32,5 @@
     "BKK", "SIN", "DPS", "KUL", "MNL", "SGN", "HKT", "NRT", "HND", "KIX", "ICN", "TPE", "PEK", "PVG", "SYX",
     "TNR", "MRU", "RUN", "SYD", "MEL", "AKL"
   ],
-  "standardAirportCodes": ["CUN", "MEX", "HAV", "MBJ", "PUJ", "SDQ", "POP", "MLE", "SEZ", "BLR", "MAA", "COK", "CPT", "JNB", "ZNZ", "KGL", "MBA", "CAI", "SSH"]
+  "standardAirportCodes": ["CUN", "MEX", "HAV", "MBJ", "PUJ", "SDQ", "POP", "MLE", "SEZ", "BLR", "MAA", "COK", "CPT", "JNB", "ZNZ", "KGL", "MBA", "CAI", "SSH", "ADD"]
 }

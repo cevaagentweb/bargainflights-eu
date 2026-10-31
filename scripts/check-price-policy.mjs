@@ -46,3 +46,28 @@ assert.equal(findTripOptions(nearOut, [{...nearIn, priceEur: 221}]).length, 0);
 assert.equal(policy.isFartherDestination("", "Madagascar", "Africa"), true);
 assert.equal(policy.isFartherDestination("", "India", "South Asia"), false);
 console.log("Website price tiers and both-direction trip pairing checks passed.");
+
+for (const code of ["TFS", "TFN", "LPA", "FUE", "ACE", "SPC", "FAO", "TUN", "MIR", "DJE", "NBE", "IST", "SAW", "AYT", "ADB", "DLM", "BJV", "ESB", "AGA", "RAK", "CMN", "FEZ", "TNG", "RBA"]) {
+  const out = {origin: "VIE", destination: code, tripType: "One Way"};
+  const back = {origin: code, destination: "BUD", routeDirection: "return", tripType: "One Way"};
+  assert.equal(policy.oneWayLimitForDeal(out), 60, code);
+  assert.equal(policy.oneWayLimitForDeal(back), 60, code);
+  assert.equal(policy.roundTripLimitForDeal(out), 120, code);
+  assert.equal(policy.isWithinPriceLimit({...out, priceEur: 59.99}), true, code);
+  assert.equal(policy.isWithinPriceLimit({...out, priceEur: 60}), false, code);
+  assert.equal(policy.isWithinPriceLimit({...out, tripType: "Round Trip", priceEur: 119.99}), true, code);
+  assert.equal(policy.isWithinPriceLimit({...out, tripType: "Round Trip", priceEur: 120}), false, code);
+}
+assert.equal(policy.isBudgetDestination("", "Türkiye"), true);
+for (const [code, country] of [["MAD", "Spain"], ["LIS", "Portugal"], ["OPO", "Portugal"], ["ADD", "Ethiopia"]]) {
+  assert.equal(policy.oneWayLimitForDeal({origin: "VIE", destination: code, destinationCountry: country}), 221, code);
+}
+const budgetOut = {...outbound, destination: "TFS", marketCode: "TFS", priceEur: 59.99};
+const budgetIn = {...homebound, origin: "TFS", marketCode: "TFS", priceEur: 59.99};
+assert.equal(policy.pairLimitForDeals(budgetOut, budgetIn), 120);
+assert.equal(findTripOptions(budgetOut, [budgetIn]).length, 1);
+assert.equal(findTripOptions(budgetIn, [budgetOut]).length, 1);
+assert.equal(findTripOptions({...budgetOut, priceEur: 60}, [budgetIn]).length, 0);
+assert.equal(findTripOptions(budgetOut, [{...budgetIn, priceEur: 60}]).length, 0);
+assert.equal(policy.isWithinPriceLimit({...budgetOut, destination: "AGA", marketCode: "AGA", priceEur: 180}), false);
+console.log("Budget 60/120 boundaries, Morocco migration, Ethiopia and budget trip matching checks passed.");
